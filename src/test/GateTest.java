@@ -5,6 +5,7 @@ import gate.Corpus;
 import gate.CorpusController;
 import gate.AnnotationSet;
 import gate.DocumentContent;
+import gate.FeatureMap;
 import gate.Gate;
 import gate.Factory;
 import gate.SimpleDocument;
@@ -49,6 +50,7 @@ public class GateTest {
 		
 		AnnotationSet set = doc.getAnnotations();
 		//set.iterator();
+		FeatureMap map = doc.getFeatures();
 
 		corpus.clear();
 
@@ -74,6 +76,6 @@ public class GateTest {
 		out.close();
 
 		System.out.println("All done");
-	} // void main(String[] args)
+	}
 
 }
