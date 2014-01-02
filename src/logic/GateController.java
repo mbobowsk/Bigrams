@@ -113,6 +113,7 @@ public class GateController {
 				cur = itr.next();
 				stats.addWord(cur);
 				stats.addBigram(prev, cur);
+				prev = cur;
 			}
 			stats.addBigram(cur, new Token(null, null, null));
 				

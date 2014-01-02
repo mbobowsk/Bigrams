@@ -41,10 +41,9 @@ public class Stats {
 		Integer number = wordsInDoc.get(currentDocument);
 		if(number==null) {
 			number = new Integer(0);
-			wordsInDoc.put(currentDocument, number);
 		}
-			
 		number++;
+		wordsInDoc.put(currentDocument, number);
 		
 	}
 	
@@ -56,9 +55,9 @@ public class Stats {
 		Integer number = bigramsInDoc.get(currentDocument);
 		if(number==null) {
 			number = new Integer(0);
-			bigramsInDoc.put(currentDocument, number);
 		}	
 		number++;
+		bigramsInDoc.put(currentDocument, number);
 		
 	}
 	
@@ -154,7 +153,7 @@ public class Stats {
 			for(Map.Entry<String, Integer> entry2: bigramsInDoc.entrySet()) {
 				String doc = entry2.getKey();
 				double tfidf = calcTDIF(doc, v, bigramsInDoc);
-				sql.addBigramTFIDFStats(bigram.getWord1(), bigram.getWord2(), doc, tfidf);
+				sql.addBigramLemmaTFIDFStats(bigram.getWord1(), bigram.getWord2(), doc, tfidf);
 				
 			}
 		}
