@@ -15,11 +15,14 @@ import gate.util.persistence.PersistenceManager;
 
 import java.io.File;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import logic.types.ParsedDocument;
 import logic.types.Sentence;
+import logic.types.Token;
+import logic.stats.Stats;
 
 public class GateController {
 
@@ -94,7 +97,25 @@ public class GateController {
 	
 	public static void main(String[] args) throws Exception {
 		GateController gc = new GateController();
-		gc.parseDocument(DOC_PATH);
+		ParsedDocument psDoc = gc.parseDocument(DOC_PATH);
+		Stats stats = new Stats();
+		stats.setDocument(DOC_PATH);
+		for(Sentence sentence : psDoc) {
+			stats.newSentence();
+			Token prev = new Token(null, null, null);
+			Token cur = new Token(null, null, null);
+			Iterator<Token> itr = sentence.iterator();
+			while(itr.hasNext())
+			{
+				cur = itr.next();
+				stats.addWord(cur);
+				stats.addBigram(prev, cur);
+			}
+			stats.addBigram(cur, new Token(null, null, null));
+				
+		}
+		System.out.println("stats has been computed");
+		
 	}
 	
 }

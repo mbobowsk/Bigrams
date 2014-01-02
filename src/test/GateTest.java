@@ -47,10 +47,6 @@ public class GateTest {
 		corpus.add(doc);
 
 		application.execute();
-		
-		AnnotationSet set = doc.getAnnotations();
-		//set.iterator();
-		FeatureMap map = doc.getFeatures();
 
 		corpus.clear();
 

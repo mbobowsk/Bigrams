@@ -4,7 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/tika-app-1.4.jar"/>
 	<classpathentry kind="lib" path="lib/gate.jar"/>
-	<classpathentry kind="lib" path="/home/preston/GATE_Developer_7.1/lib"/>
 	<classpathentry kind="lib" path="lib/ant-launcher.jar"/>
 	<classpathentry kind="lib" path="lib/ant.jar"/>
 	<classpathentry kind="lib" path="lib/aopalliance.jar"/>
@@ -49,5 +48,6 @@
 	<classpathentry kind="lib" path="lib/xmlunit.jar"/>
 	<classpathentry kind="lib" path="lib/xpp3.jar"/>
 	<classpathentry kind="lib" path="lib/xstream.jar"/>
+	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

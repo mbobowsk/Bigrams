@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.0' encoding='windows-1250'?>
 <GateDocument version="2">
 <!-- The document's features-->
 
@@ -9,7 +9,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">gate.SourceURL</Name>
-  <Value className="java.lang.String">file:/home/preston/programy/Bigrams/texts/wash_short.txt</Value>
+  <Value className="java.lang.String">file:/C:/Users/cinek/git/Bigrams/texts/wash_short.txt</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">docNewLineType</Name>

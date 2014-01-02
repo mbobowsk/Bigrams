@@ -22,7 +22,7 @@ public class InputParser {
 
 		try {
 			is = new BufferedInputStream(new FileInputStream(new File(
-					"/home/preston/programy/Bigrams/texts/washington.odt")));
+					"texts/washington.odt")));
 
 			Parser parser = new AutoDetectParser();
 			ContentHandler handler = new BodyContentHandler(System.out);
