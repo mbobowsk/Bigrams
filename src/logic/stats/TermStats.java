@@ -25,5 +25,23 @@ public class TermStats {
 		Integer countInDoc = documents.get(document);
 		countInDoc++;
 	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public int getNumberOfSentence() {
+		return numberOfSentence;
+	}
+
+	public int getNumberOfDocuments() {
+		return numberOfDocuments;
+	}
+
+	public int getDocuments(String doc) {
+		return documents.get(doc);
+	}
+	
+
 	
 }

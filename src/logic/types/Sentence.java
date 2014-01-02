@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 public class Sentence extends LinkedList<Token> {
 	
+
 	public Sentence(LinkedList<Annotation> annotations) {
 		super();
 		for (Annotation a : annotations) {

@@ -24,11 +24,14 @@ import logic.types.Sentence;
 import logic.types.Token;
 import logic.stats.Stats;
 
+import sql.SQLConnection;
+
+
 public class GateController {
 
 	private static final String APP_PATH = "res/app.xml";
 	private static final String DOC_PATH = "texts/wash_short.txt";
-	
+	private static final String DB_PATH = "test.db";
 	public GateController() throws GateException {
 		Gate.init();
 	}
@@ -110,12 +113,15 @@ public class GateController {
 				cur = itr.next();
 				stats.addWord(cur);
 				stats.addBigram(prev, cur);
+				prev = cur;
 			}
 			stats.addBigram(cur, new Token(null, null, null));
 				
 		}
 		System.out.println("stats has been computed");
-		
+		SQLConnection sql = new SQLConnection(DB_PATH);
+		stats.saveStats(sql);
+		sql.closeConnection();
 	}
 	
 }
