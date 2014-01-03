@@ -5,14 +5,14 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-public class BigramType extends JPanel {
+public class BigramTypePane extends JPanel {
 	
-	JRadioButton followingWords = new JRadioButton("Kolejne słowa");
-	JRadioButton wholeSentence = new JRadioButton("Wszystkie słowa w zdaniu");
-	JPanel buttonsPane = new JPanel();
-	ButtonGroup bg = new ButtonGroup();
+	private final JRadioButton followingWords = new JRadioButton("Kolejne słowa");
+	private final JRadioButton wholeSentence = new JRadioButton("Wszystkie słowa w zdaniu");
+	private final JPanel buttonsPane = new JPanel();
+	private final ButtonGroup bg = new ButtonGroup();
 	
-	public BigramType() {
+	public BigramTypePane() {
 		super();
 		buttonsPane.setBorder(BorderFactory.createTitledBorder("Rodzaj bigramów"));
 		buttonsPane.add(followingWords);
@@ -23,5 +23,9 @@ public class BigramType extends JPanel {
 		bg.add(wholeSentence);
 		
 		followingWords.setSelected(true);
+	}
+
+	public JRadioButton getFollowingWords() {
+		return followingWords;
 	}
 }

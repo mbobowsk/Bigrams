@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -20,13 +21,13 @@ public class POSPanel extends JPanel implements ActionListener {
 	private final JButton choose1 = new JButton("Wybierz");
 	private final JButton choose2 = new JButton("Wybierz");
 	
-	private JLabel chosenPos1 = new JLabel("Wszystkie");
-	private JLabel chosenPos2 = new JLabel("Wszystkie");
-	
 	private JPanel word1Pane = new JPanel(new GridBagLayout());
 	private JPanel word2Pane = new JPanel(new GridBagLayout());
 	
 	private JPanel mainPane = new JPanel(new GridLayout(2,1));
+	
+	private ArrayList<String> pos1 = null;
+	private ArrayList<String> pos2 = null;
 	
 	public POSPanel() {
 		super();
@@ -44,43 +45,13 @@ public class POSPanel extends JPanel implements ActionListener {
 	}
 	
 	private void initWord1Pane() {
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 0;
-		word1Pane.add(word1, c);
-		
-		c.fill = GridBagConstraints.NONE;
-		c.gridx = 1;
-		c.gridy = 0;
-		word1Pane.add(choose1, c);
-		
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 1;
-		c.gridwidth = 6;
-		c.ipady = 10;
-		word1Pane.add(chosenPos1, c);
+		word1Pane.add(word1);
+		word1Pane.add(choose1);
 	}
 	
 	private void initWord2Pane() {
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 0;
-		word2Pane.add(word2, c);
-		
-		c.fill = GridBagConstraints.NONE;
-		c.gridx = 1;
-		c.gridy = 0;
-		word2Pane.add(choose2, c);
-		
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 1;
-		c.gridwidth = 6;
-		c.ipady = 10;
-		word2Pane.add(chosenPos2, c);
+		word2Pane.add(word2);
+		word2Pane.add(choose2);
 	}
 
 	@Override
@@ -91,6 +62,14 @@ public class POSPanel extends JPanel implements ActionListener {
 		else {
 			
 		}
+	}
+
+	public ArrayList<String> getPos1() {
+		return pos1;
+	}
+
+	public ArrayList<String> getPos2() {
+		return pos2;
 	}
 	
 }

@@ -1,6 +1,5 @@
 package view.panel;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -48,9 +47,13 @@ public class PathPanel extends JPanel implements ActionListener {
 		int ret = fc.showOpenDialog(this);
 		if (ret == JFileChooser.APPROVE_OPTION) {
 			String name = fc.getCurrentDirectory() + "/" + fc.getName(fc.getSelectedFile());
-			chosenPath.setText("");
 			chosenPath.setText(name);
 		}
+	}
+
+
+	public JLabel getChosenPath() {
+		return chosenPath;
 	}
 
 }
