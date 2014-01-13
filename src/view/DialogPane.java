@@ -1,19 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package view;
 
-import java.util.Arrays;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
-/**
- *
- * @author preston
- */
 public class DialogPane extends javax.swing.JPanel {
 
     /**

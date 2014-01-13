@@ -50,6 +50,9 @@ public class AppWindow extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         run = new javax.swing.JButton();
         choosePos2 = new javax.swing.JButton();
+        wordPane = new javax.swing.JScrollPane();
+        basicWordPane = new javax.swing.JScrollPane();
+        bigramPane = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -138,7 +141,7 @@ public class AppWindow extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(139, 139, 139)
                                 .addComponent(run)))
-                        .addGap(41, 128, Short.MAX_VALUE))))
+                        .addGap(41, 177, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,6 +174,9 @@ public class AppWindow extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Opcje", jPanel1);
+        jTabbedPane1.addTab("Słowa", wordPane);
+        jTabbedPane1.addTab("Słowa (forma podstawowa)", basicWordPane);
+        jTabbedPane1.addTab("Bigramy", bigramPane);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -309,6 +315,8 @@ public class AppWindow extends javax.swing.JFrame {
     private DefaultListModel inactiveModel2 = new DefaultListModel();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane basicWordPane;
+    private javax.swing.JScrollPane bigramPane;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JButton choosePath;
     private javax.swing.JButton choosePos1;
@@ -324,5 +332,6 @@ public class AppWindow extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton run;
     private javax.swing.JRadioButton wholeSentence;
+    private javax.swing.JScrollPane wordPane;
     // End of variables declaration//GEN-END:variables
 }
