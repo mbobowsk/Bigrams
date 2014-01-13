@@ -1,23 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
-
-/**
- *
- * @author preston
- */
-public class PosDialog extends JDialog {
+public class PosDialog extends JDialog implements ActionListener {
     
-	public PosDialog(JFrame frame) {
+	public PosDialog(JFrame frame, DefaultListModel active, DefaultListModel inactive) {
 		super(frame);
-		setContentPane(new DialogPane());
+                setTitle("Wybór części mowy");
+                DialogPane dlg = new DialogPane(active, inactive);
+		setContentPane(dlg);
+                dlg.getOkButton().addActionListener(this);
+                pack();
 	}
+
+    public void actionPerformed(ActionEvent ae) {
+        setVisible(false);
+        dispose();
+    }
 }

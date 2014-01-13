@@ -29,7 +29,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" pref="356" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -196,9 +196,6 @@
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Kolejne s&#x142;owa"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="followingWordsActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="wholeSentence">
               <Properties>
@@ -225,6 +222,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Wybierz"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="choosePos2ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -6,6 +6,10 @@
 
 package view;
 
+import java.util.Arrays;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+
 /**
  *
  * @author preston
@@ -15,8 +19,11 @@ public class DialogPane extends javax.swing.JPanel {
     /**
      * Creates new form dialogPane
      */
-    public DialogPane() {
+    public DialogPane(DefaultListModel active, DefaultListModel inactive) {
         initComponents();
+        this.active = active;
+        this.inactive = inactive;
+        refreshLists();
     }
 
     /**
@@ -29,66 +36,70 @@ public class DialogPane extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        inactiveList = new javax.swing.JList();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList();
+        activeList = new javax.swing.JList();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        toActive = new javax.swing.JButton();
+        toInactive = new javax.swing.JButton();
+        okButton = new javax.swing.JButton();
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(inactiveList);
 
-        jList2.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(jList2);
+        jScrollPane2.setViewportView(activeList);
 
         jLabel1.setText("Nieaktywne");
 
         jLabel2.setText("Aktywne");
 
-        jButton1.setText(">>");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        toActive.setText(">>");
+        toActive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                toActiveActionPerformed(evt);
             }
         });
 
-        jButton2.setText("<<");
+        toInactive.setText("<<");
+        toInactive.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toInactiveActionPerformed(evt);
+            }
+        });
+
+        okButton.setText("Ok");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(45, 45, 45))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(toActive)
+                            .addComponent(toInactive))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
@@ -96,30 +107,68 @@ public class DialogPane extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane2)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(118, 118, 118))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addComponent(toActive)
+                        .addGap(67, 67, 67)
+                        .addComponent(toInactive)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                        .addComponent(okButton)
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void toActiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toActiveActionPerformed
+        int[] toActiveIndices = reverse(inactiveList.getSelectedIndices());
+        for (int i : toActiveIndices) {
+            active.addElement(inactive.getElementAt(i));
+            inactive.removeElementAt(i);
+        }
+        refreshLists();
+    }//GEN-LAST:event_toActiveActionPerformed
 
+    private void toInactiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toInactiveActionPerformed
+        int[] toInactiveIndices = reverse(activeList.getSelectedIndices());
+        for (int i : toInactiveIndices) {
+            inactive.addElement(active.getElementAt(i));
+            active.removeElementAt(i);
+        }
+        refreshLists();
+    }//GEN-LAST:event_toInactiveActionPerformed
+
+    private int[] reverse(int[] array) {
+        for (int i = 0; i < array.length / 2; i++) {
+            int tmp = array[i];
+            array[i] = array[array.length-i-1];
+            array[array.length-i-1] = tmp;
+        }
+        return array;
+    }
+    
+    private void refreshLists() {
+        activeList.setModel(active);
+        inactiveList.setModel(inactive);
+    }
+    
+    public JButton getOkButton() {
+        return okButton;
+    }
+    
+    private DefaultListModel active;
+    private DefaultListModel inactive;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JList activeList;
+    private javax.swing.JList inactiveList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList jList1;
-    private javax.swing.JList jList2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton okButton;
+    private javax.swing.JButton toActive;
+    private javax.swing.JButton toInactive;
     // End of variables declaration//GEN-END:variables
 }

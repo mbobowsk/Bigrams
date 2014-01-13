@@ -8,6 +8,7 @@ package view;
 
 import java.io.File;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import logic.Options;
 
@@ -22,6 +23,7 @@ public class AppWindow extends javax.swing.JFrame {
      */
     public AppWindow() {
         initComponents();
+        initModels();
     }
 
     /**
@@ -78,11 +80,6 @@ public class AppWindow extends javax.swing.JFrame {
         buttonGroup.add(followingWords);
         followingWords.setSelected(true);
         followingWords.setText("Kolejne słowa");
-        followingWords.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                followingWordsActionPerformed(evt);
-            }
-        });
 
         buttonGroup.add(wholeSentence);
         wholeSentence.setText("Wszystkie słowa w zdaniu");
@@ -97,6 +94,11 @@ public class AppWindow extends javax.swing.JFrame {
         });
 
         choosePos2.setText("Wybierz");
+        choosePos2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                choosePos2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -176,7 +178,7 @@ public class AppWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -190,18 +192,12 @@ public class AppWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void followingWordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_followingWordsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_followingWordsActionPerformed
-
     private void choosePos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choosePos1ActionPerformed
-        // TODO add your handling code here:
-        PosDialog dlg = new PosDialog(this);
+        PosDialog dlg = new PosDialog(this, activeModel1, inactiveModel1);
         dlg.setVisible(true);
     }//GEN-LAST:event_choosePos1ActionPerformed
 
     private void choosePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choosePathActionPerformed
-        // TODO add your handling code here:
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         int ret = fc.showOpenDialog(this);
@@ -212,16 +208,28 @@ public class AppWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_choosePathActionPerformed
 
     private void runActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runActionPerformed
-        // TODO add your handling code here:
         getOptions();
     }//GEN-LAST:event_runActionPerformed
+
+    private void choosePos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choosePos2ActionPerformed
+        PosDialog dlg = new PosDialog(this, activeModel2, inactiveModel2);
+        dlg.setVisible(true);
+    }//GEN-LAST:event_choosePos2ActionPerformed
 
     private Options getOptions() {
 	Options.BigramType type = getBigramType();
 	ArrayList<String> paths = getPaths();
-        ArrayList<String> posPane1 = null;
-        ArrayList<String> posPane2 = null;
+        ArrayList<String> posPane1 = getAll(activeModel1);
+        ArrayList<String> posPane2 = getAll(activeModel2);
 	return new Options(paths, type, posPane1, posPane2);
+    }
+    
+    private ArrayList<String> getAll(DefaultListModel model) {
+        ArrayList<String> list = new ArrayList<String>();
+        for (int i=0; i < model.size(); i++) {
+            list.add((String)model.getElementAt(i));
+        }
+        return list;
     }
 	
     private Options.BigramType getBigramType() {
@@ -244,6 +252,21 @@ public class AppWindow extends javax.swing.JFrame {
 		ret.add(path);
 	}
 	return ret;
+    }
+    
+    private void initModels() {
+        String[] allPos = {
+            "CC", "CD", "DT", "EX", "FW", "IN", "JJ", "JJR", "JJS", "JJSS", "LRB", "LS", "MD",
+            "NN", "NNP", "NNPS", "NNS", "NP", "NPS",
+            "PDT", "POS", "PP", "PRPR$", "PRP", "PRP$",
+            "RB", "RBR", "RBS", "RP", "STAART", "SYM", "TO",
+            "UH", "VBD", "VBG", "VBN", "VBP", "VB", "VBZ", "WDT",
+            "WP$", "WP", "WRB"
+        };
+        for (String pos : allPos) {
+            activeModel1.addElement(pos);
+            activeModel2.addElement(pos);
+        }
     }
     /**
      * @param args the command line arguments
@@ -279,6 +302,11 @@ public class AppWindow extends javax.swing.JFrame {
             }
         });
     }
+    
+    private DefaultListModel activeModel1 = new DefaultListModel();
+    private DefaultListModel inactiveModel1 = new DefaultListModel();
+    private DefaultListModel activeModel2 = new DefaultListModel();
+    private DefaultListModel inactiveModel2 = new DefaultListModel();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup;
