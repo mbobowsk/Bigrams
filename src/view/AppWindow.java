@@ -232,11 +232,16 @@ public class AppWindow extends javax.swing.JFrame {
 	private void fillTables(String path) {
 		try {
 			SQLRead read = new SQLRead(path);
-			WordModel model = read.getWordModel();
-			JTable wordTable = new JTable(model);
+			WordModel wordModel = read.getWordModel(false);
+			WordModel lemmaModel = read.getWordModel(true);
+			JTable wordTable = new JTable(wordModel);
+			JTable lemmaTable = new JTable(lemmaModel);
 			wordTable.setAutoCreateRowSorter(true);
 			wordTable.setFillsViewportHeight(true);
 			wordPane.setViewportView(wordTable);
+			lemmaTable.setAutoCreateRowSorter(true);
+			lemmaTable.setFillsViewportHeight(true);
+			basicWordPane.setViewportView(lemmaTable);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
