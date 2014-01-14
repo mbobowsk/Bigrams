@@ -206,7 +206,7 @@ public class AppWindow extends javax.swing.JFrame {
 		fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		int ret = fc.showOpenDialog(this);
 		if (ret == JFileChooser.APPROVE_OPTION) {
-			String name = fc.getCurrentDirectory() + "/" + fc.getName(fc.getSelectedFile());
+			String name = fc.getCurrentDirectory() + File.separator + fc.getName(fc.getSelectedFile());
 			chosenPath.setText(name);
 		}
 	}//GEN-LAST:event_choosePathActionPerformed
@@ -272,7 +272,7 @@ public class AppWindow extends javax.swing.JFrame {
 
 		if (file.isDirectory()) {
 			for (File fileEntry : file.listFiles())
-				ret.add(fileEntry.getName());
+				ret.add(path + File.separator + fileEntry.getName());
 		}
 		else {
 			ret.add(path);

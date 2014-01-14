@@ -17,13 +17,14 @@ public class TermStats {
 			documents.put(document, new Integer(1));
 		}
 		else
-			countInDoc++;
+			documents.put(document, ++countInDoc);
 	}
 	
 	public void nextOccurance(String document) {
 		count++;
 		Integer countInDoc = documents.get(document);
 		countInDoc++;
+		documents.put(document, ++countInDoc);
 	}
 
 	public int getCount() {
@@ -39,7 +40,10 @@ public class TermStats {
 	}
 
 	public int getDocuments(String doc) {
-		return documents.get(doc);
+		Integer number = documents.get(doc);;
+		if (number==null)
+			number=0;
+		return number;
 	}
 	
 

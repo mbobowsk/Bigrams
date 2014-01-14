@@ -25,13 +25,17 @@ public class Stats {
 		currentDocument = doc;
 		numberOfDocs++;
 		wordsInSentence = new HashSet<Object>();
+		lemmasInSentence = new HashSet<Object>();
+		bigramsInSentence = new HashSet<Object>();		
+		bigramsLemmaInSentence = new HashSet<Object>();
+		
 	}
 	
 	public void newSentence() {
 		wordsInSentence = new HashSet<Object>();
 		lemmasInSentence = new HashSet<Object>();
 		bigramsInSentence = new HashSet<Object>();
-		
+		bigramsLemmaInSentence = new HashSet<Object>();
 		numberOfSentences++;
 	}
 	
