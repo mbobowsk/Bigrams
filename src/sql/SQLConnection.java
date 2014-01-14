@@ -4,6 +4,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+
+import logic.types.WordStats;
+import view.WordModel;
 
 public class SQLConnection {
 
@@ -161,4 +165,10 @@ public class SQLConnection {
 		conn.close();
 	}
 	
+	public WordModel getWordModel(String path) throws ClassNotFoundException, SQLException {
+		ArrayList<WordStats> stats = new ArrayList<WordStats>();
+		
+		
+		return new WordModel(stats);
+	}
 }

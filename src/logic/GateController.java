@@ -14,6 +14,8 @@ import gate.util.GateException;
 import gate.util.persistence.PersistenceManager;
 
 import java.io.File;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -22,21 +24,20 @@ import java.util.List;
 import logic.types.ParsedDocument;
 import logic.types.Sentence;
 import logic.types.Token;
+import logic.types.WordStats;
 import logic.stats.Stats;
 
 import sql.SQLConnection;
+import view.WordModel;
 
 
 public class GateController {
 
 	private static final String APP_PATH = "res/app.xml";
-	private static final String DOC_PATH = "texts/wash_short.txt";
-	private static final String DB_PATH = "test.db";
 	public GateController() throws GateException {
 		Gate.init();
 	}
 	
-	// Na razie zakładamy, że jest jeden dokument
 	public ParsedDocument parseDocument(String path) throws Exception {
 		File appFile = new File(APP_PATH);
 		// load the saved application
@@ -46,7 +47,7 @@ public class GateController {
 		Corpus corpus = Factory.newCorpus("BatchProcessApp Corpus");
 		application.setCorpus(corpus);
 
-		File docFile = new File(DOC_PATH);
+		File docFile = new File(path);
 		System.out.print("Processing document " + docFile + "...");
 		Document doc = Factory.newDocument(docFile.toURL());
 
@@ -98,30 +99,33 @@ public class GateController {
 		return ret;
 	}
 	
-	public static void main(String[] args) throws Exception {
-		GateController gc = new GateController();
-		ParsedDocument psDoc = gc.parseDocument(DOC_PATH);
+	public void calculate(Options options) throws Exception {
 		Stats stats = new Stats();
-		stats.setDocument(DOC_PATH);
-		for(Sentence sentence : psDoc) {
-			stats.newSentence();
-			Token prev = new Token(null, null, null);
-			Token cur = new Token(null, null, null);
-			Iterator<Token> itr = sentence.iterator();
-			while(itr.hasNext())
-			{
-				cur = itr.next();
-				stats.addWord(cur);
-				stats.addBigram(prev, cur);
-				prev = cur;
+		
+		for (String path : options.getPaths()) {
+			ParsedDocument doc = parseDocument(path);
+			stats.setDocument(path);
+			for(Sentence sentence : doc) {
+				stats.newSentence();
+				Token prev = new Token(null, null, null);
+				Token cur = new Token(null, null, null);
+				Iterator<Token> itr = sentence.iterator();
+				while(itr.hasNext())
+				{
+					cur = itr.next();
+					stats.addWord(cur);
+					stats.addBigram(prev, cur);
+					prev = cur;
+				}
+				stats.addBigram(cur, new Token(null, null, null));
 			}
-			stats.addBigram(cur, new Token(null, null, null));
-				
 		}
+		
 		System.out.println("stats has been computed");
-		SQLConnection sql = new SQLConnection(DB_PATH);
+		SQLConnection sql = new SQLConnection(options.getFileName());
 		stats.saveStats(sql);
 		sql.closeConnection();
 	}
 	
+
 }

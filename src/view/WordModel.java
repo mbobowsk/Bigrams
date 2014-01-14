@@ -1,14 +1,24 @@
 package view;
 
+import java.util.ArrayList;
+
 import javax.swing.table.AbstractTableModel;
+
+import logic.types.WordStats;
 
 public class WordModel extends AbstractTableModel {
     
-    private final static Object[] columnNames = {"Wystąpienia", "Zdania",
-        "Dokumenty", "Procent dokumentów", "tf-idf"};
+    private final static Object[] columnNames = {"Słowo", "Wystąpienia", "Zdania",
+        "Dokumenty", "Procent dokumentów"};
+    
+    private final ArrayList<WordStats> stats;
+    
+    public WordModel(ArrayList<WordStats> stats) {
+    	this.stats = stats;
+    }
 
     public int getRowCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return stats.size();
     }
 
     @Override
@@ -16,8 +26,15 @@ public class WordModel extends AbstractTableModel {
         return columnNames.length;
     }
 
-    public Object getValueAt(int i, int i1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        WordStats stat = stats.get(rowIndex);
+        switch (columnIndex) {
+        case 0: return stat.getWord();
+        case 1: return stat.getCount();
+        case 2: return stat.getSentenceCount();
+        case 3: return stat.getDocCount();
+        default: return stat.getDocPercent();
+        }
     }
     
     @Override

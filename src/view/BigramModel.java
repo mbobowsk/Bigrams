@@ -5,7 +5,7 @@ import javax.swing.table.AbstractTableModel;
 public class BigramModel extends AbstractTableModel {
     
     private final static Object[] columnNames = {"Wystąpienia", "Zdania",
-        "Dokumenty", "Procent dokumentów", "tf-idf", "P(s1)", "P(s2)", "P(x)"};
+        "Dokumenty", "Procent dokumentów", "P(s1)", "P(s2)", "P(x)"};
 
     public int getRowCount() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

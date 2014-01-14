@@ -15,9 +15,10 @@ public class Options {
 	private BigramType bigramType;
 	// Part-of-speech selection for both words
 	// List of pos: http://gate.ac.uk/sale/tao/splitap7.html#x37-764000G
-	// Equals null for all pos available
 	private ArrayList<String> pos1;
 	private ArrayList<String> pos2;
+	
+	private String fileName = "test.sqlite";
 	
 	public Options(ArrayList<String> paths, BigramType bigramType,
 			ArrayList<String> pos1, ArrayList<String> pos2) {
@@ -38,6 +39,10 @@ public class Options {
 	}
 	public ArrayList<String> getPos2() {
 		return pos2;
+	}
+
+	public String getFileName() {
+		return fileName;
 	}
 	
 }

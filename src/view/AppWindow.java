@@ -1,21 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package view;
+
+import gate.util.GateException;
 
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JTable;
+
+import sql.SQLRead;
+
+import logic.GateController;
 import logic.Options;
 
-/**
- *
- * @author preston
- */
 public class AppWindow extends javax.swing.JFrame {
 
     /**
@@ -214,7 +211,19 @@ public class AppWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_choosePathActionPerformed
 
     private void runActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runActionPerformed
-        getOptions();
+        Options options = getOptions();
+        try {
+			GateController gc = new GateController();
+			gc.calculate(options);
+			SQLRead read = new SQLRead(options.getFileName());
+			WordModel model = read.getWordModel();
+			JTable wordTable = new JTable(model);
+			wordPane.add(wordTable);
+			//wordTable.setModel(model);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}        
+        
     }//GEN-LAST:event_runActionPerformed
 
     private void choosePos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choosePos2ActionPerformed
