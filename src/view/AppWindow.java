@@ -357,6 +357,8 @@ public class AppWindow extends javax.swing.JFrame {
 			addTable(read.getTfidfModel(true), basicWordTfidfPane);
 			addTable(read.getBigramModel(false), bigramPane);
 			addTable(read.getBigramModel(true), basicBigramPane);
+			addTable(read.getBigramTfidfModel(false), bigramTfidfPane);
+			addTable(read.getBigramTfidfModel(true), basicBigramTfidfPane);
 			read.closeConnection();
 			
 		} catch (Exception e) {
