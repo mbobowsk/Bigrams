@@ -39,7 +39,6 @@ public class BigramModel extends AbstractTableModel {
         case 6: return stat.getPs1();
         case 7: return stat.getPs2();
         default: return stat.getPx();
-        
         }
     }
     
@@ -52,4 +51,9 @@ public class BigramModel extends AbstractTableModel {
     public boolean isCellEditable(int row, int column) {
         return false;
     }
+    
+    public Class getColumnClass(int c) {  
+    	Object value=this.getValueAt(0,c);  
+    	return (value==null?Object.class:value.getClass());  
+   }
 }
