@@ -18,14 +18,16 @@ public class Options {
 	private ArrayList<String> pos1;
 	private ArrayList<String> pos2;
 	
-	private String fileName = "test.sqlite";
+	private String fileName;
 	
 	public Options(ArrayList<String> paths, BigramType bigramType,
-			ArrayList<String> pos1, ArrayList<String> pos2) {
+			ArrayList<String> pos1, ArrayList<String> pos2,
+			String fileName) {
 		this.paths = paths;
 		this.bigramType = bigramType;
 		this.pos1 = pos1;
 		this.pos2 = pos2;
+		this.fileName = fileName;
 	}
 	
 	public ArrayList<String> getPaths() {
