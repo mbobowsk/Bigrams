@@ -1,9 +1,8 @@
 package sql;
 
-import java.sql.Connection;
+
 import java.sql.Statement;
 import java.sql.ResultSet;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -12,14 +11,12 @@ import view.WordModel;
 import logic.types.BigramStats;
 import logic.types.WordStats;
 
-public class SQLRead {
-	public static final String DRIVER = "org.sqlite.JDBC";
-	private Connection conn;
+public class SQLRead extends SQLConnection {
+	
 	public SQLRead(String databaseName) throws ClassNotFoundException, SQLException {
-		Class.forName(DRIVER);
-		String databaseURL = "jdbc:sqlite:" + databaseName;
-		conn = DriverManager.getConnection(databaseURL);
+		super(databaseName);
 	}
+
 	
 	public WordModel getWordModel(boolean lemma) throws SQLException {
 		ArrayList<WordStats> wordsStats = new ArrayList<WordStats>();
@@ -54,7 +51,7 @@ public class SQLRead {
 		while ( rs.next() ) {
 			BigramStats wordStats = new BigramStats(rs.getString("word1"), rs.getString("word2"), rs.getInt("count"),
 					rs.getInt("numberOfSentences"), rs.getInt("numberOfDocuments"), 
-					rs.getDouble("percentOfDocument"), rs.getDouble("percentOfSentencew1"),
+					rs.getDouble("percentOfDocuments"), rs.getDouble("percentOfSentencew1"),
 					rs.getDouble("percentOfSentencew2"), rs.getDouble("percentOfSentence"));
 			bigramsStats.add(wordStats);
 		}

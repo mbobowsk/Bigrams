@@ -27,7 +27,7 @@ import logic.types.Token;
 import logic.types.WordStats;
 import logic.stats.Stats;
 
-import sql.SQLConnection;
+import sql.SQLWrite;
 import view.WordModel;
 
 
@@ -122,7 +122,7 @@ public class GateController {
 		}
 		
 		System.out.println("stats has been computed");
-		SQLConnection sql = new SQLConnection(options.getFileName());
+		SQLWrite sql = new SQLWrite(options.getFileName());
 		stats.saveStats(sql);
 		sql.closeConnection();
 	}
