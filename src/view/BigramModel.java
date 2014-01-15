@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 import logic.types.BigramStats;
-import logic.types.WordStats;
 
 public class BigramModel extends AbstractTableModel {
     
