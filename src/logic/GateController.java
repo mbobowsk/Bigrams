@@ -21,12 +21,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import logic.Options.BigramType;
 import logic.types.ParsedDocument;
 import logic.types.Sentence;
 import logic.types.Token;
 import logic.types.WordStats;
 import logic.stats.Stats;
-
 import sql.SQLWrite;
 import view.WordModel;
 
@@ -107,17 +107,11 @@ public class GateController {
 			stats.setDocument(path);
 			for(Sentence sentence : doc) {
 				stats.newSentence();
-				Token prev = new Token(null, null, null);
-				Token cur = new Token(null, null, null);
-				Iterator<Token> itr = sentence.iterator();
-				while(itr.hasNext())
-				{
-					cur = itr.next();
-					stats.addWord(cur);
-					stats.addBigram(prev, cur);
-					prev = cur;
-				}
-				stats.addBigram(cur, new Token(null, null, null));
+				if(options.getBigramType()==BigramType.FOLLOWING_WORDS)
+					bigramFollowing(sentence, stats);
+				else
+					bigramPOS(sentence, stats, options.getPos1(), options.getPos2());
+
 			}
 		}
 		
@@ -125,6 +119,36 @@ public class GateController {
 		SQLWrite sql = new SQLWrite(options.getFileName());
 		stats.saveStats(sql);
 		sql.closeConnection();
+	}
+	
+	private void bigramFollowing(Sentence sentence, Stats stats) {
+		Token prev = new Token(null, null, null);
+		Token cur = new Token(null, null, null);
+		Iterator<Token> itr = sentence.iterator();
+		while(itr.hasNext())
+		{
+			cur = itr.next();
+			stats.addWord(cur);
+			stats.addBigram(prev, cur);
+			prev = cur;
+		}
+		stats.addBigram(cur, new Token(null, null, null));
+	}
+	
+	private void bigramPOS(Sentence sentence, Stats stats, ArrayList<String> POS1, ArrayList<String> POS2) {
+		Token first = new Token(null, null, null);
+		Token second = new Token(null, null, null);
+		for(int i=0; i<sentence.size(); i++)
+		{
+			first = sentence.get(i);
+			stats.addWord(sentence.get(i));
+			if(POS1.contains(first.getPos()))
+				for(int j=0; j<sentence.size(); j++) {
+					second = sentence.get(j);
+					if(POS2.contains(second.getPos()))
+						stats.addBigram(first, second);
+				}
+		}
 	}
 	
 
