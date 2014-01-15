@@ -31,13 +31,13 @@ public class BigramModel extends AbstractTableModel {
         BigramStats stat = stats.get(rowIndex);
         switch (columnIndex) {
         case 0: return stat.getWord1();
-        case 2: return stat.getWord2();
-        case 3: return stat.getCount();
-        case 4: return stat.getSentenceCount();
-        case 5: return stat.getDocCount();
-        case 6: return stat.getDocPercent();
-        case 7: return stat.getPs1();
-        case 8: return stat.getPs2();
+        case 1: return stat.getWord2();
+        case 2: return stat.getCount();
+        case 3: return stat.getSentenceCount();
+        case 4: return stat.getDocCount();
+        case 5: return stat.getDocPercent();
+        case 6: return stat.getPs1();
+        case 7: return stat.getPs2();
         default: return stat.getPx();
         
         }

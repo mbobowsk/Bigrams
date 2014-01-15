@@ -4,7 +4,7 @@ import java.util.*;
 
 import logic.types.Token;
 import logic.term.Bigram;
-import sql.SQLConnection;
+import sql.SQLWrite;
 
 public class Stats {
 	private Map<Object, TermStats> wordsStats = new HashMap<Object, TermStats>();
@@ -85,7 +85,7 @@ public class Stats {
 		
 	}
 	
-	public void saveStats(SQLConnection sql) throws SQLException {
+	public void saveStats(SQLWrite sql) throws SQLException {
 		for(Map.Entry<Object, TermStats> entry: wordsStats.entrySet()) {
 			TermStats v = entry.getValue();
 			sql.addWordStats((String)entry.getKey(), v.getCount(), v.getNumberOfSentence(), v.getNumberOfDocuments(), (double)v.getNumberOfDocuments()/(double)numberOfDocs);
