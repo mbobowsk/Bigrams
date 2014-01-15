@@ -7,8 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import view.BigramModel;
+import view.TfidfModel;
 import view.WordModel;
 import logic.types.BigramStats;
+import logic.types.TfidfStats;
 import logic.types.WordStats;
 
 public class SQLRead extends SQLConnection {
@@ -58,5 +60,25 @@ public class SQLRead extends SQLConnection {
 		BigramModel model = new BigramModel(bigramsStats);
 		return model;
 	}
+	
+	public TfidfModel getTfidfModel(boolean lemma) throws SQLException {
+		Statement stmt = conn.createStatement();
+		String word;
+		ArrayList<TfidfStats> tfidfStats = new ArrayList<TfidfStats>();
+		if(!lemma)
+			word = "wordsTFIDF";
+		else
+			word = "lemmasTFIDF";
+		ResultSet rs = stmt.executeQuery( "SELECT * FROM "+word+";" );
+		while ( rs.next() ) {
+			TfidfStats stats = new TfidfStats(rs.getString("word"), rs.getString("document"), rs.getDouble("tfidf"));
+			tfidfStats.add(stats);
+			
+		}
+		TfidfModel model = new TfidfModel(tfidfStats);
+		return model;
+		
+	}
+	
 	
 }

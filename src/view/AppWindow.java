@@ -5,12 +5,14 @@ import gate.util.GateException;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
 
 import sql.SQLRead;
-
 import logic.GateController;
 import logic.Options;
 
@@ -349,32 +351,25 @@ public class AppWindow extends javax.swing.JFrame {
 	private void fillTables(String path) {
 		try {
 			SQLRead read = new SQLRead(path);
-			WordModel wordModel = read.getWordModel(false);
-			WordModel lemmaModel = read.getWordModel(true);
-			BigramModel bigramModel = read.getBigramModel(false);
-			BigramModel lemmaBigramModel = read.getBigramModel(true);
-			JTable wordTable = new JTable(wordModel);
-			JTable lemmaTable = new JTable(lemmaModel);
-			JTable bigramTable = new JTable(bigramModel);
-			JTable bigramLemmaTable = new JTable(lemmaBigramModel);
-			wordTable.setAutoCreateRowSorter(true);
-			wordTable.setFillsViewportHeight(true);
-			wordPane.setViewportView(wordTable);
-			lemmaTable.setAutoCreateRowSorter(true);
-			lemmaTable.setFillsViewportHeight(true);
-			basicWordPane.setViewportView(lemmaTable);
-			bigramTable.setAutoCreateRowSorter(true);
-			bigramTable.setFillsViewportHeight(true);
-			bigramPane.setViewportView(bigramTable);
-			bigramLemmaTable.setAutoCreateRowSorter(true);
-			bigramLemmaTable.setFillsViewportHeight(true);
-			basicBigramPane.setViewportView(bigramLemmaTable);
+			addTable(read.getWordModel(false), wordPane);
+			addTable(read.getWordModel(true), basicWordPane);
+			addTable(read.getTfidfModel(false), wordTfidfPane);
+			addTable(read.getTfidfModel(true), basicWordTfidfPane);
+			addTable(read.getBigramModel(false), bigramPane);
+			addTable(read.getBigramModel(true), basicBigramPane);
+			read.closeConnection();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+	
+	private void addTable(AbstractTableModel model, JScrollPane pane) {
+		JTable table = new JTable(model);
+		table.setAutoCreateRowSorter(true);
+		table.setFillsViewportHeight(true);
+		pane.setViewportView(table);
+	}
 	private Options getOptions() {
 		Options.BigramType type = getBigramType();
 		ArrayList<String> paths = getPaths();
