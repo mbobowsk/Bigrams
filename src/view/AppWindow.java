@@ -366,6 +366,9 @@ public class AppWindow extends javax.swing.JFrame {
 			bigramTable.setAutoCreateRowSorter(true);
 			bigramTable.setFillsViewportHeight(true);
 			bigramPane.setViewportView(bigramTable);
+			bigramLemmaTable.setAutoCreateRowSorter(true);
+			bigramLemmaTable.setFillsViewportHeight(true);
+			basicBigramPane.setViewportView(bigramLemmaTable);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
