@@ -25,10 +25,10 @@ import logic.Options.BigramType;
 import logic.types.ParsedDocument;
 import logic.types.Sentence;
 import logic.types.Token;
-import logic.types.WordStats;
 import logic.stats.Stats;
+import model.WordModel;
+import model.WordStats;
 import sql.SQLWrite;
-import view.WordModel;
 
 
 public class GateController {

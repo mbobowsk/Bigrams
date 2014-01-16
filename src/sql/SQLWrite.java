@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import logic.types.WordStats;
-import view.WordModel;
+import model.WordModel;
+import model.WordStats;
 
 public class SQLWrite extends SQLConnection {
 

@@ -10,11 +10,11 @@ public class PosDialog extends JDialog implements ActionListener {
     
 	public PosDialog(JFrame frame, DefaultListModel active, DefaultListModel inactive) {
 		super(frame);
-                setTitle("Wybór części mowy");
-                DialogPane dlg = new DialogPane(active, inactive);
+        setTitle("Wybór części mowy");
+        DialogPane dlg = new DialogPane(active, inactive);
 		setContentPane(dlg);
-                dlg.getOkButton().addActionListener(this);
-                pack();
+        dlg.getOkButton().addActionListener(this);
+        pack();
 	}
 
     public void actionPerformed(ActionEvent ae) {

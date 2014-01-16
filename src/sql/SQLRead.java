@@ -6,14 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import view.BigramModel;
-import view.TfidfBigramModel;
-import view.TfidfModel;
-import view.WordModel;
-import logic.types.BigramStats;
-import logic.types.TfidfBigramStats;
-import logic.types.TfidfStats;
-import logic.types.WordStats;
+import model.BigramModel;
+import model.BigramStats;
+import model.TfidfBigramModel;
+import model.TfidfBigramStats;
+import model.TfidfModel;
+import model.TfidfStats;
+import model.WordModel;
+import model.WordStats;
 
 public class SQLRead extends SQLConnection {
 	

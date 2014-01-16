@@ -15,6 +15,8 @@ import javax.swing.table.AbstractTableModel;
 import sql.SQLRead;
 import logic.GateController;
 import logic.Options;
+import model.ModelLogic;
+import model.Pos;
 
 public class AppWindow extends javax.swing.JFrame {
 
@@ -23,7 +25,7 @@ public class AppWindow extends javax.swing.JFrame {
 	 */
 	public AppWindow() {
 		initComponents();
-		initModels();
+		//initModels();
 	}
 
 	/**
@@ -375,17 +377,9 @@ public class AppWindow extends javax.swing.JFrame {
 	private Options getOptions() {
 		Options.BigramType type = getBigramType();
 		ArrayList<String> paths = getPaths();
-		ArrayList<String> posPane1 = getAll(activeModel1);
-		ArrayList<String> posPane2 = getAll(activeModel2);
+		ArrayList<String> posPane1 = ModelLogic.getShortNamesFromModel(activeModel1);
+		ArrayList<String> posPane2 = ModelLogic.getShortNamesFromModel(activeModel2);
 		return new Options(paths, type, posPane1, posPane2, outFileName.getText());
-	}
-
-	private ArrayList<String> getAll(DefaultListModel model) {
-		ArrayList<String> list = new ArrayList<String>();
-		for (int i=0; i < model.size(); i++) {
-			list.add((String)model.getElementAt(i));
-		}
-		return list;
 	}
 
 	private Options.BigramType getBigramType() {
@@ -409,21 +403,7 @@ public class AppWindow extends javax.swing.JFrame {
 		}
 		return ret;
 	}
-
-	private void initModels() {
-		String[] allPos = {
-				"CC", "CD", "DT", "EX", "FW", "IN", "JJ", "JJR", "JJS", "JJSS", "LRB", "LS", "MD",
-				"NN", "NNP", "NNPS", "NNS", "NP", "NPS",
-				"PDT", "POS", "PP", "PRPR$", "PRP", "PRP$",
-				"RB", "RBR", "RBS", "RP", "STAART", "SYM", "TO",
-				"UH", "VBD", "VBG", "VBN", "VBP", "VB", "VBZ", "WDT",
-				"WP$", "WP", "WRB"
-		};
-		for (String pos : allPos) {
-			activeModel1.addElement(pos);
-			activeModel2.addElement(pos);
-		}
-	}
+	
 	/**
 	 * @param args the command line arguments
 	 */
@@ -459,9 +439,9 @@ public class AppWindow extends javax.swing.JFrame {
 		});
 	}
 
-	private DefaultListModel activeModel1 = new DefaultListModel();
+	private DefaultListModel activeModel1 = ModelLogic.initPosModel();
 	private DefaultListModel inactiveModel1 = new DefaultListModel();
-	private DefaultListModel activeModel2 = new DefaultListModel();
+	private DefaultListModel activeModel2 = ModelLogic.initPosModel();
 	private DefaultListModel inactiveModel2 = new DefaultListModel();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
