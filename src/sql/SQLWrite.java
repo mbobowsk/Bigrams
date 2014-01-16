@@ -45,20 +45,25 @@ public class SQLWrite extends SQLConnection {
 	private void createTables() throws SQLException
 	{
 		String createWords = "CREATE TABLE IF NOT EXISTS words (word varchar(255) PRIMARY KEY, count int, numberOfSentences int, numberOfDocuments int, percentOfDocuments real)";
+		String deleteWords = "DELETE FROM words";
 		String createWordsTFIDF = "CREATE TABLE IF NOT EXISTS wordsTFIDF (word varchar(255), document varchar(255), tfidf real)";
-
+		String deleteWordsTFIDF = "DELETE FROM wordsTFIDF";
 		String createLemmas = "CREATE TABLE IF NOT EXISTS lemmas (word varchar(255) PRIMARY KEY, count int, numberOfSentences int, numberOfDocuments int, percentOfDocuments real)";
+		String deleteLemmas = "DELETE FROM lemmas";
 		String createLemmasTFIDF = "CREATE TABLE IF NOT EXISTS lemmasTFIDF (word varchar(255), document varchar(255), tfidf real)";
-		
+		String deleteLemmasTFDIF = "DELETE FROM lemmasTFIDF";
 		String createBigrams = "CREATE TABLE IF NOT EXISTS bigrams "
 				+ "(word1 varchar(255), word2 varchar(255), count int, numberOfSentences int, numberOfDocuments int, percentOfDocuments real, "
 				+ "percentOfSentence real, percentOfSentencew1 real, percentOfSentencew2 real)";
+		String deleteBigrams = "DELETE FROM bigrams";
 		String createBigramsTFIDF = "CREATE TABLE IF NOT EXISTS bigramsTFIDF (word1 varchar(255), word2 varchar(255), document varchar(255), tfidf real)";
-		
+		String deleteBigramsTFIDF = "DELETE FROM bigramsTFIDF";
 		String createBigramsLemma = "CREATE TABLE IF NOT EXISTS bigramsLemma "
 				+ "(word1 varchar(255), word2 varchar(255), count int, numberOfSentences int, numberOfDocuments int, percentOfDocuments real, "
 				+ "percentOfSentence real, percentOfSentencew1 real, percentOfSentencew2 real)";
+		String deleteBigramsLemma = "DELETE FROM bigramsLemma";
 		String createBigramsLemmaTFIDF = "CREATE TABLE IF NOT EXISTS bigramsLemmaTFIDF (word1 varchar(255), word2 varchar(255), document varchar(255), tfidf real)";
+		String deleteBigramsLemmaTFIDF = "DELETE FROM bigramsLemmaTFIDF";
 		
 		stat.execute(createWords);
 		stat.execute(createWordsTFIDF);
@@ -68,6 +73,14 @@ public class SQLWrite extends SQLConnection {
 		stat.execute(createBigramsTFIDF);
 		stat.execute(createBigramsLemma);
 		stat.execute(createBigramsLemmaTFIDF);
+		stat.execute(deleteWords);
+		stat.execute(deleteWordsTFIDF);
+		stat.execute(deleteLemmas);
+		stat.execute(deleteLemmasTFDIF);
+		stat.execute(deleteBigrams);
+		stat.execute(deleteBigramsTFIDF);
+		stat.execute(deleteBigramsLemma);
+		stat.execute(deleteBigramsLemmaTFIDF);		
 		conn.commit();
 	}
 	
