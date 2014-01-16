@@ -1,0 +1,44 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\selectlanguage{polish}
+
+\usepackage{graphics}
+\usepackage{graphicx}
+
+\usepackage[dvips]{hyperref}
+
+\author{Michał Bobowski, Marcin Cieślikowski}
+\date{2014-01-16}
+\title{Narzędzie do analizy statystycznej słów i bigramów.}
+
+\begin{document}
+  \maketitle
+
+\section{Wstęp}
+Niniejszy dokument stanowi podsumowanie projektu z przedmiotu WEDT.
+Zawiera opis interfejsu użytkownika i logiki programu oraz przedstawienie struktury kodu źródłowego.
+
+\section{Koncepcja programu}
+Program ma za zadanie obliczyć statystyki słów i bigramów z jednego lub wielu plików wejściowych.
+Obsługiwane powinny być najbardziej popularne formaty plików w tym pliki MS Word.
+Wyniki obliczeń powinny być przechowywane na dysku w rozsądnym formacie i możliwe do wykorzystania w przyszłości.
+
+Program powinien zawierać prosty graficzny interfejs użytkownika.
+Jego zadaniem jest pobranie parametrów obliczeń oraz wyświetlenie wyników symulacji.
+
+Na podstawie powyższych założeń wyróżniamy dwa przypadki użycia.
+Pierwszy przypadek użycia składa się z następujących czynności:
+\begin{enumerate}
+ \item Wybranie przez użytkownika parametrów obliczeń.
+ \item Przeprowadzenie symulacji.
+ \item Zapis wyników do pliku.
+ \item Wyświetlenie wyników na ekranie.
+\end{enumerate}
+
+Drugim przypadkiem jest wczytanie wyników z zapisanego pliku i wyświetlenie ich na ekranie.
+
+\end{document}
