@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.3.16)  16 JAN 2014 16:23
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.3.16)  16 JAN 2014 19:48
 entering extended mode
  %&-line parsing enabled.
 **bigrams.tex
@@ -442,8 +442,7 @@ Package hyperref Warning: Wrong driver `hdvips.def';
 (/usr/share/texmf-texlive/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2009/10/09 v6.79a Hyperref driver for pdfTeX
 \Fld@listcount=\count95
-)
-No file bigrams.aux.
+) (./bigrams.aux)
 \openout1 = `bigrams.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
@@ -461,6 +460,7 @@ LaTeX Font Info:    ... okay on input line 18.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 18.
 LaTeX Font Info:    ... okay on input line 18.
 LaTeX Font Info:    Try loading font information for T1+lmr on input line 18.
+
 (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -488,13 +488,14 @@ Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
 LaTeX Info: Redefining \ref on input line 18.
 LaTeX Info: Redefining \pageref on input line 18.
+ (./bigrams.out)
+(./bigrams.out)
 \@outlinefile=\write3
 \openout3 = `bigrams.out'.
 
 \AtBeginShipoutBox=\box27
 LaTeX Font Info:    Try loading font information for OT1+lmr on input line 20.
-
-(/usr/share/texmf/tex/latex/lm/ot1lmr.fd
+ (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Try loading font information for OML+lmm on input line 20.
@@ -522,23 +523,23 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 20.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./bigrams.aux) ) 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] (./bigrams.aux) ) 
 Here is how much of TeX's memory you used:
- 4984 strings out of 495026
- 69872 string characters out of 1181802
- 137585 words of memory out of 3000000
- 8082 multiletter control sequences out of 15000+50000
- 30735 words of font info for 31 fonts, out of 3000000 for 9000
+ 5038 strings out of 495026
+ 70393 string characters out of 1181802
+ 139585 words of memory out of 3000000
+ 8096 multiletter control sequences out of 15000+50000
+ 33733 words of font info for 32 fonts, out of 3000000 for 9000
  48 hyphenation exceptions out of 8191
- 38i,6n,36p,252b,303s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/sha
-re/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm/l
-mbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/f
-onts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pf
-b>
-Output written on bigrams.pdf (1 page, 111303 bytes).
+ 38i,6n,36p,252b,382s stack positions out of 5000i,500n,10000p,200000b,50000s
+{
+/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/pub
+lic/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share
+/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/
+lmr17.pfb>
+Output written on bigrams.pdf (3 pages, 129008 bytes).
 PDF statistics:
- 36 PDF objects out of 1000 (max. 8388607)
- 8 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 120 PDF objects out of 1000 (max. 8388607)
+ 42 named destinations out of 1000 (max. 500000)
+ 97 words of extra memory for PDF output out of 10000 (max. 10000000)
 

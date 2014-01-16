@@ -29,16 +29,72 @@ Wyniki obliczeń powinny być przechowywane na dysku w rozsądnym formacie i mo�
 
 Program powinien zawierać prosty graficzny interfejs użytkownika.
 Jego zadaniem jest pobranie parametrów obliczeń oraz wyświetlenie wyników symulacji.
+Możliwa powinna być również filtracja wyświetlanych danych danych.
 
-Na podstawie powyższych założeń wyróżniamy dwa przypadki użycia.
-Pierwszy przypadek użycia składa się z następujących czynności:
+\section{Przypadki użycia}
+\subsection{Przeprowadzenie obliczeń}
+Podstawowym zadaniem programu jest przeprowadzenie obliczeń i wyświetlenie ich na ekranie.
+Scenariusz tworzą następujące zdarzenia:
 \begin{enumerate}
- \item Wybranie przez użytkownika parametrów obliczeń.
- \item Przeprowadzenie symulacji.
- \item Zapis wyników do pliku.
- \item Wyświetlenie wyników na ekranie.
+ \item Użytkownik wybiera parametry.
+ \item System przeprowadza obliczenia.
+ \item System zapisuje wyniki do pliku.
+ \item System wyświetla wyniki na ekranie.
 \end{enumerate}
 
-Drugim przypadkiem jest wczytanie wyników z zapisanego pliku i wyświetlenie ich na ekranie.
+\subsection{Wczytanie wyników}
+\begin{enumerate}
+ \item Użytkownik wybiera ścieżkę do pliku z zapisanymi wynikami.
+ \item System wyświetla wyniki na ekranie.
+\end{enumerate}
+
+\subsection{Filtracja}
+Operacja filtracji staje się dostępna dopiero po wykonaniu któregoś z wcześniejszych przypadków użycia.
+\begin{enumerate}
+ \item Użytkownik wybiera jedną z tabel wynikowych.
+ \item Użytkownik wypełnia filtry.
+ \item System wyświetla przefiltrowane wyniki na ekranie.
+\end{enumerate}
+
+\section{Specyfikacja szczegółowa}
+W tej części doprecyzowane zostały wymagania dotyczące danych wejściowych i wyjściowych.
+\subsection{Parametry wejściowe}
+Przed przeprowadzeniem obliczeń użytkownik może zdefiniować następujące parametry:
+\begin{enumerate}
+ \item Ścieżka do pliku wejściowego lub katalogu zawierającego wiele plików wejściowych.
+ \item Typ bigramu: obliczany dla kolejnych słów lub wszystkich słów w tekście.
+ \item Części mowy dla słów z bigramu.
+ \item Nazwa pliku wyjściowego.
+\end{enumerate}
+
+\subsection{Format danych wyjściowych}
+Statystyki słów/bigramów są liczone i prezentowane dwa razy - dla słów z odmianą oraz dla formy podstawowej.
+Statystyki dla słów:
+\begin{enumerate}
+ \item Liczba wystąpień w zbiorze.
+ \item Liczba zdań w których wystąpiło słowo.
+ \item Liczba dokumentów w których wystąpiło słowo.
+ \item Procent dokumentów w których wystąpiło słowo.
+ \item Miara tf-idf.
+\end{enumerate}
+
+Statystyki dla bigramów:
+\begin{enumerate}
+ \item Liczba wystąpień w zbiorze.
+ \item Liczba zdań w którtch wystąpił bigram.
+ \item Liczba dokumentów w których wystąpił bigram.
+ \item Procent dokumentów w których wystąpił bigram.
+ \item Miara tf-idf.
+ \item Prawdopodobieństwo słowa 1.
+ \item Prawdopodobieństwo słowa 2.
+ \item Prawdopodobieństwo bigramu złożonego ze słów 1 i 2.
+\end{enumerate}
+
+\section{Wybór narzędzi i technologii}
+
+\section{Opis kodu źródłowego}
+
+\section{Algorytmy}
+
 
 \end{document}

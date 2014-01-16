@@ -1,2 +1,12 @@
 \BOOKMARK [1][-]{section.1}{Wstep}{}
 \BOOKMARK [1][-]{section.2}{Koncepcja programu}{}
+\BOOKMARK [1][-]{section.3}{Przypadki uzycia}{}
+\BOOKMARK [2][-]{subsection.3.1}{Przeprowadzenie obliczen}{section.3}
+\BOOKMARK [2][-]{subsection.3.2}{Wczytanie wynik\363w}{section.3}
+\BOOKMARK [2][-]{subsection.3.3}{Filtracja}{section.3}
+\BOOKMARK [1][-]{section.4}{Specyfikacja szczeg\363\233owa}{}
+\BOOKMARK [2][-]{subsection.4.1}{Parametry wejsciowe}{section.4}
+\BOOKMARK [2][-]{subsection.4.2}{Format danych wyjsciowych}{section.4}
+\BOOKMARK [1][-]{section.5}{Wyb\363r narzedzi i technologii}{}
+\BOOKMARK [1][-]{section.6}{Opis kodu zr\363d\233owego}{}
+\BOOKMARK [1][-]{section.7}{Algorytmy}{}
