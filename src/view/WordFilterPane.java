@@ -72,8 +72,6 @@ public class WordFilterPane extends javax.swing.JPanel {
 
         jLabel1.setText("Słowo");
 
-        filterText.setText("*");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -246,11 +244,7 @@ public class WordFilterPane extends javax.swing.JPanel {
         } catch (java.util.regex.PatternSyntaxException e) {
             return;
         }
-        if (filters.size() > 1)
-        	sorter.setRowFilter(compoundRowFilter);
-        else
-        	sorter.setRowFilter(wordFilter);
-        
+        sorter.setRowFilter(compoundRowFilter);
     }//GEN-LAST:event_filterButtonActionPerformed
     
     private void addFromToIntFilter(JTextField from, JTextField to, 

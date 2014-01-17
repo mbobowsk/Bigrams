@@ -9,16 +9,17 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
 
 import sql.SQLRead;
 import logic.Controller;
 import logic.Options;
+import model.BigramModel;
 import model.ModelLogic;
+import model.TfidfBigramModel;
+import model.TfidfModel;
 import model.WordModel;
 
 public class AppWindow extends javax.swing.JFrame implements ActionListener {
@@ -31,40 +32,64 @@ public class AppWindow extends javax.swing.JFrame implements ActionListener {
 		initMenu();
 		initTables();
 	}
-	
+
 	private void initMenu() {
-	    JMenuItem menuItem = new JMenuItem("Filtruj");
-	    menuItem.addActionListener(this);
-	    popup.add(menuItem);
-	    
-	    MouseListener popupListener = new PopupListener(popup);
-	    wordTable.addMouseListener(popupListener);
-	    basicWordTable.addMouseListener(popupListener);
+		JMenuItem menuItem = new JMenuItem("Filtruj");
+		menuItem.addActionListener(this);
+		popup.add(menuItem);
+
+		MouseListener popupListener = new PopupListener(popup);
+		wordTable.addMouseListener(popupListener);
+		basicWordTable.addMouseListener(popupListener);
+		bigramTable.addMouseListener(popupListener);
+		basicBigramTable.addMouseListener(popupListener);
+		tfidfTable.addMouseListener(popupListener);
+		basicTfidfTable.addMouseListener(popupListener);
+		bigramTfidfTable.addMouseListener(popupListener);
+		basicBigramTfidfTable.addMouseListener(popupListener);
 	}
-	
+
 	private void initTables() {
 		initTable(wordTable, wordPane);
 		initTable(basicWordTable, basicWordPane);
+		initTable(bigramTable, bigramPane);
+		initTable(basicBigramTable, basicBigramPane);
+		initTable(tfidfTable, wordTfidfPane);
+		initTable(basicTfidfTable, basicWordTfidfPane);
+		initTable(bigramTfidfTable, bigramTfidfPane);
+		initTable(basicBigramTfidfTable, basicBigramTfidfPane);
 	}
-	
+
 	private void initTable(JTable table, JScrollPane pane) {
 		table.setAutoCreateRowSorter(true);
 		table.setFillsViewportHeight(true);
 		pane.setViewportView(table);
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// If one model is null then others are null too
 		if (wordModel == null)
 			return;
-		
+
 		int index = tabbedPane.getSelectedIndex();
 
 		switch (index) {
 		case 1:
 			WordFilterDialog wdf = new WordFilterDialog(this, wordTable);
 			wdf.setVisible(true);
+			break;
+		case 2:
+			WordFilterDialog wdf2 = new WordFilterDialog(this, basicWordTable);
+			wdf2.setVisible(true);
+			break;
+		case 3:
+			BigramFilterDialog bfd = new BigramFilterDialog(this, bigramTable);
+			bfd.setVisible(true);
+			break;
+		case 4:
+			BigramFilterDialog bfd2 = new BigramFilterDialog(this, basicBigramTable);
+			bfd2.setVisible(true);
 			break;
 		}
 	}
@@ -76,271 +101,271 @@ public class AppWindow extends javax.swing.JFrame implements ActionListener {
 	 */
 
 	@SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+	private void initComponents() {
 
-        buttonGroup = new javax.swing.ButtonGroup();
-        tabbedPane = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        choosePos1 = new javax.swing.JButton();
-        choosePath = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        chosenPath = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        followingWords = new javax.swing.JRadioButton();
-        wholeSentence = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
-        run = new javax.swing.JButton();
-        choosePos2 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        outFileName = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel8 = new javax.swing.JLabel();
-        loadResults = new javax.swing.JButton();
-        wordPane = new javax.swing.JScrollPane();
-        basicWordPane = new javax.swing.JScrollPane();
-        bigramPane = new javax.swing.JScrollPane();
-        basicBigramPane = new javax.swing.JScrollPane();
-        wordTfidfPane = new javax.swing.JScrollPane();
-        basicWordTfidfPane = new javax.swing.JScrollPane();
-        bigramTfidfPane = new javax.swing.JScrollPane();
-        basicBigramTfidfPane = new javax.swing.JScrollPane();
+		buttonGroup = new javax.swing.ButtonGroup();
+		tabbedPane = new javax.swing.JTabbedPane();
+		jPanel1 = new javax.swing.JPanel();
+		jPanel2 = new javax.swing.JPanel();
+		jLabel3 = new javax.swing.JLabel();
+		choosePos1 = new javax.swing.JButton();
+		choosePath = new javax.swing.JButton();
+		jLabel5 = new javax.swing.JLabel();
+		chosenPath = new javax.swing.JLabel();
+		jLabel6 = new javax.swing.JLabel();
+		jLabel4 = new javax.swing.JLabel();
+		followingWords = new javax.swing.JRadioButton();
+		wholeSentence = new javax.swing.JRadioButton();
+		jLabel1 = new javax.swing.JLabel();
+		run = new javax.swing.JButton();
+		choosePos2 = new javax.swing.JButton();
+		jLabel2 = new javax.swing.JLabel();
+		jLabel7 = new javax.swing.JLabel();
+		outFileName = new javax.swing.JTextField();
+		jPanel3 = new javax.swing.JPanel();
+		jSeparator1 = new javax.swing.JSeparator();
+		jLabel8 = new javax.swing.JLabel();
+		loadResults = new javax.swing.JButton();
+		wordPane = new javax.swing.JScrollPane();
+		basicWordPane = new javax.swing.JScrollPane();
+		bigramPane = new javax.swing.JScrollPane();
+		basicBigramPane = new javax.swing.JScrollPane();
+		wordTfidfPane = new javax.swing.JScrollPane();
+		basicWordTfidfPane = new javax.swing.JScrollPane();
+		bigramTfidfPane = new javax.swing.JScrollPane();
+		basicBigramTfidfPane = new javax.swing.JScrollPane();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel3.setText("Rodzaj bigramów");
+		jLabel3.setText("Rodzaj bigramów");
 
-        choosePos1.setText("Wybierz");
-        choosePos1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                choosePos1ActionPerformed(evt);
-            }
-        });
+		choosePos1.setText("Wybierz");
+		choosePos1.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				choosePos1ActionPerformed(evt);
+			}
+		});
 
-        choosePath.setText("Wybierz");
-        choosePath.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                choosePathActionPerformed(evt);
-            }
-        });
+		choosePath.setText("Wybierz");
+		choosePath.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				choosePathActionPerformed(evt);
+			}
+		});
 
-        jLabel5.setText("Słowo 1");
+		jLabel5.setText("Słowo 1");
 
-        chosenPath.setText("...");
+		chosenPath.setText("...");
 
-        jLabel6.setText("Słowo 2");
+		jLabel6.setText("Słowo 2");
 
-        jLabel4.setText("Części mowy");
+		jLabel4.setText("Części mowy");
 
-        buttonGroup.add(followingWords);
-        followingWords.setSelected(true);
-        followingWords.setText("Kolejne słowa");
+		buttonGroup.add(followingWords);
+		followingWords.setSelected(true);
+		followingWords.setText("Kolejne słowa");
 
-        buttonGroup.add(wholeSentence);
-        wholeSentence.setText("Wszystkie słowa w zdaniu");
+		buttonGroup.add(wholeSentence);
+		wholeSentence.setText("Wszystkie słowa w zdaniu");
 
-        jLabel1.setText("Plik/katalog wejściowy");
+		jLabel1.setText("Plik/katalog wejściowy");
 
-        run.setText("Uruchom");
-        run.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                runActionPerformed(evt);
-            }
-        });
+		run.setText("Uruchom");
+		run.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				runActionPerformed(evt);
+			}
+		});
 
-        choosePos2.setText("Wybierz");
-        choosePos2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                choosePos2ActionPerformed(evt);
-            }
-        });
+		choosePos2.setText("Wybierz");
+		choosePos2.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				choosePos2ActionPerformed(evt);
+			}
+		});
 
-        jLabel2.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
-        jLabel2.setText("Przeprowadź symulację");
+		jLabel2.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+		jLabel2.setText("Przeprowadź symulację");
 
-        jLabel7.setText("Nazwa pliku wyjściowego");
+		jLabel7.setText("Nazwa pliku wyjściowego");
 
-        outFileName.setText("out.sqlite");
+		outFileName.setText("out.sqlite");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(120, 120, 120)
-                .addComponent(run)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(chosenPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(choosePath))
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(followingWords)
-                                            .addComponent(wholeSentence)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(jLabel6)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(choosePos2))
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(jLabel5)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(choosePos1)))))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(79, 79, 79)
-                                .addComponent(jLabel2))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addComponent(outFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel7))))
-                        .addGap(0, 75, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(choosePath))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chosenPath)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addGap(3, 3, 3)
-                .addComponent(followingWords)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(wholeSentence)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(choosePos1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(choosePos2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(outFileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(run)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+		javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+		jPanel2.setLayout(jPanel2Layout);
+		jPanel2Layout.setHorizontalGroup(
+				jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanel2Layout.createSequentialGroup()
+						.addGap(120, 120, 120)
+						.addComponent(run)
+						.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addGroup(jPanel2Layout.createSequentialGroup()
+								.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(jPanel2Layout.createSequentialGroup()
+												.addContainerGap()
+												.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+														.addGroup(jPanel2Layout.createSequentialGroup()
+																.addGap(12, 12, 12)
+																.addComponent(chosenPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+																.addGroup(jPanel2Layout.createSequentialGroup()
+																		.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+																				.addGroup(jPanel2Layout.createSequentialGroup()
+																						.addComponent(jLabel1)
+																						.addGap(18, 18, 18)
+																						.addComponent(choosePath))
+																						.addComponent(jLabel3)
+																						.addComponent(jLabel4)
+																						.addGroup(jPanel2Layout.createSequentialGroup()
+																								.addGap(12, 12, 12)
+																								.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+																										.addComponent(followingWords)
+																										.addComponent(wholeSentence)
+																										.addGroup(jPanel2Layout.createSequentialGroup()
+																												.addComponent(jLabel6)
+																												.addGap(18, 18, 18)
+																												.addComponent(choosePos2))
+																												.addGroup(jPanel2Layout.createSequentialGroup()
+																														.addComponent(jLabel5)
+																														.addGap(18, 18, 18)
+																														.addComponent(choosePos1)))))
+																														.addGap(0, 0, Short.MAX_VALUE))))
+																														.addGroup(jPanel2Layout.createSequentialGroup()
+																																.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+																																		.addGroup(jPanel2Layout.createSequentialGroup()
+																																				.addGap(79, 79, 79)
+																																				.addComponent(jLabel2))
+																																				.addGroup(jPanel2Layout.createSequentialGroup()
+																																						.addContainerGap()
+																																						.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+																																								.addGroup(jPanel2Layout.createSequentialGroup()
+																																										.addGap(12, 12, 12)
+																																										.addComponent(outFileName, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+																																										.addComponent(jLabel7))))
+																																										.addGap(0, 75, Short.MAX_VALUE)))
+																																										.addContainerGap())
+				);
+		jPanel2Layout.setVerticalGroup(
+				jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanel2Layout.createSequentialGroup()
+						.addContainerGap()
+						.addComponent(jLabel2)
+						.addGap(27, 27, 27)
+						.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(jLabel1)
+								.addComponent(choosePath))
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(chosenPath)
+								.addGap(18, 18, 18)
+								.addComponent(jLabel3)
+								.addGap(3, 3, 3)
+								.addComponent(followingWords)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(wholeSentence)
+								.addGap(18, 18, 18)
+								.addComponent(jLabel4)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(jLabel5)
+										.addComponent(choosePos1))
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+										.addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+												.addComponent(jLabel6)
+												.addComponent(choosePos2))
+												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+												.addComponent(jLabel7)
+												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+												.addComponent(outFileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addGap(18, 18, 18)
+												.addComponent(run)
+												.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				);
 
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+		jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jLabel8.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
-        jLabel8.setText("Wczytaj wyniki");
+		jLabel8.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+		jLabel8.setText("Wczytaj wyniki");
 
-        loadResults.setText("Wczytaj");
-        loadResults.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loadResultsActionPerformed(evt);
-            }
-        });
+		loadResults.setText("Wczytaj");
+		loadResults.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				loadResultsActionPerformed(evt);
+			}
+		});
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(46, 46, 46))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(loadResults)
-                        .addGap(74, 74, 74))))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
-                        .addComponent(loadResults))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+		javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+		jPanel3.setLayout(jPanel3Layout);
+		jPanel3Layout.setHorizontalGroup(
+				jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanel3Layout.createSequentialGroup()
+						.addContainerGap()
+						.addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+						.addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+										.addComponent(jLabel8)
+										.addGap(46, 46, 46))
+										.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+												.addComponent(loadResults)
+												.addGap(74, 74, 74))))
+				);
+		jPanel3Layout.setVerticalGroup(
+				jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanel3Layout.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addGroup(jPanel3Layout.createSequentialGroup()
+										.addComponent(jLabel8)
+										.addGap(18, 18, 18)
+										.addComponent(loadResults))
+										.addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+		jPanel1.setLayout(jPanel1Layout);
+		jPanel1Layout.setHorizontalGroup(
+				jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanel1Layout.createSequentialGroup()
+						.addContainerGap()
+						.addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addContainerGap())
+				);
+		jPanel1Layout.setVerticalGroup(
+				jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+								.addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addContainerGap())
+				);
 
-        tabbedPane.addTab("Opcje", jPanel1);
-        tabbedPane.addTab("Słowa", wordPane);
-        tabbedPane.addTab("Słowa (lemma)", basicWordPane);
-        tabbedPane.addTab("Bigramy", bigramPane);
-        tabbedPane.addTab("Bigramy (lemma)", basicBigramPane);
-        tabbedPane.addTab("Słowa tf-idf", wordTfidfPane);
-        tabbedPane.addTab("Słowa (lemma) tf-idf", basicWordTfidfPane);
-        tabbedPane.addTab("Bigramy tf-idf", bigramTfidfPane);
-        tabbedPane.addTab("Bigramy (lemma) tf-idf", basicBigramTfidfPane);
+		tabbedPane.addTab("Opcje", jPanel1);
+		tabbedPane.addTab("Słowa", wordPane);
+		tabbedPane.addTab("Słowa (lemma)", basicWordPane);
+		tabbedPane.addTab("Bigramy", bigramPane);
+		tabbedPane.addTab("Bigramy (lemma)", basicBigramPane);
+		tabbedPane.addTab("Słowa tf-idf", wordTfidfPane);
+		tabbedPane.addTab("Słowa (lemma) tf-idf", basicWordTfidfPane);
+		tabbedPane.addTab("Bigramy tf-idf", bigramTfidfPane);
+		tabbedPane.addTab("Bigramy (lemma) tf-idf", basicBigramTfidfPane);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.TRAILING)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane)
-        );
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+		getContentPane().setLayout(layout);
+		layout.setHorizontalGroup(
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.TRAILING)
+				);
+		layout.setVerticalGroup(
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addComponent(tabbedPane)
+				);
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+		pack();
+	}// </editor-fold>//GEN-END:initComponents
 
 	private void choosePos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choosePos1ActionPerformed
 		PosDialog dlg = new PosDialog(this, activeModel1, inactiveModel1);
@@ -374,14 +399,14 @@ public class AppWindow extends javax.swing.JFrame implements ActionListener {
 		dlg.setVisible(true);
 	}//GEN-LAST:event_choosePos2ActionPerformed
 
-    private void loadResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadResultsActionPerformed
-        JFileChooser fc = new JFileChooser();
-	fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-	int ret = fc.showOpenDialog(this);
-	if (ret == JFileChooser.APPROVE_OPTION) {
-            fillTables(fc.getSelectedFile().getPath());
-	}
-    }//GEN-LAST:event_loadResultsActionPerformed
+	private void loadResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadResultsActionPerformed
+		JFileChooser fc = new JFileChooser();
+		fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		int ret = fc.showOpenDialog(this);
+		if (ret == JFileChooser.APPROVE_OPTION) {
+			fillTables(fc.getSelectedFile().getPath());
+		}
+	}//GEN-LAST:event_loadResultsActionPerformed
 
 	// gets data from SQLite file and shows it to the user
 	private void fillTables(String path) {
@@ -390,29 +415,35 @@ public class AppWindow extends javax.swing.JFrame implements ActionListener {
 
 			wordModel = read.getWordModel(false);
 			wordTable.setModel(wordModel);
-			
-			basicWordModel = read.getWordModel(false);
+
+			basicWordModel = read.getWordModel(true);
 			basicWordTable.setModel(basicWordModel);
-			
-			addTable(read.getTfidfModel(false), wordTfidfPane);
-			addTable(read.getTfidfModel(true), basicWordTfidfPane);
-			addTable(read.getBigramModel(false), bigramPane);
-			addTable(read.getBigramModel(true), basicBigramPane);
-			addTable(read.getBigramTfidfModel(false), bigramTfidfPane);
-			addTable(read.getBigramTfidfModel(true), basicBigramTfidfPane);
+
+			bigramModel = read.getBigramModel(false);
+			bigramTable.setModel(bigramModel);
+
+			basicBigramModel = read.getBigramModel(true);
+			basicBigramTable.setModel(basicBigramModel);
+
+			tfidfModel = read.getTfidfModel(false);
+			tfidfTable.setModel(tfidfModel);
+
+			basicTfidfModel = read.getTfidfModel(true);
+			basicTfidfTable.setModel(basicTfidfModel);
+
+			bigramTfidfModel = read.getBigramTfidfModel(false);
+			bigramTfidfTable.setModel(bigramTfidfModel);
+
+			basicBigramTfidfModel = read.getBigramTfidfModel(true);
+			basicBigramTfidfTable.setModel(basicBigramTfidfModel);
+
 			read.closeConnection();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	private void addTable(AbstractTableModel model, JScrollPane pane) {
-		JTable table = new JTable(model);
-		table.setAutoCreateRowSorter(true);
-		table.setFillsViewportHeight(true);
-		pane.setViewportView(table);
-	}
+
 	private Options getOptions() {
 		Options.BigramType type = getBigramType();
 		ArrayList<String> paths = getPaths();
@@ -442,7 +473,7 @@ public class AppWindow extends javax.swing.JFrame implements ActionListener {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * @param args the command line arguments
 	 */
@@ -482,46 +513,58 @@ public class AppWindow extends javax.swing.JFrame implements ActionListener {
 	private DefaultListModel inactiveModel1 = new DefaultListModel();
 	private DefaultListModel activeModel2 = ModelLogic.initPosModel();
 	private DefaultListModel inactiveModel2 = new DefaultListModel();
-	
+
 	private JTable wordTable = new JTable();
 	private JTable basicWordTable = new JTable();
-	
+	private JTable bigramTable = new JTable();
+	private JTable basicBigramTable = new JTable();
+	private JTable tfidfTable = new JTable();
+	private JTable basicTfidfTable = new JTable();
+	private JTable bigramTfidfTable = new JTable();
+	private JTable basicBigramTfidfTable = new JTable();
+
 	private WordModel wordModel = null;
 	private WordModel basicWordModel = null;
-	
+	private BigramModel bigramModel = null;
+	private BigramModel basicBigramModel = null;
+	private TfidfModel tfidfModel = null;
+	private TfidfModel basicTfidfModel = null;
+	private TfidfBigramModel bigramTfidfModel = null;
+	private TfidfBigramModel basicBigramTfidfModel = null;
+
 	private JPopupMenu popup = new JPopupMenu();
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane basicBigramPane;
-    private javax.swing.JScrollPane basicBigramTfidfPane;
-    private javax.swing.JScrollPane basicWordPane;
-    private javax.swing.JScrollPane basicWordTfidfPane;
-    private javax.swing.JScrollPane bigramPane;
-    private javax.swing.JScrollPane bigramTfidfPane;
-    private javax.swing.ButtonGroup buttonGroup;
-    private javax.swing.JButton choosePath;
-    private javax.swing.JButton choosePos1;
-    private javax.swing.JButton choosePos2;
-    private javax.swing.JLabel chosenPath;
-    private javax.swing.JRadioButton followingWords;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JButton loadResults;
-    private javax.swing.JTextField outFileName;
-    private javax.swing.JButton run;
-    private javax.swing.JTabbedPane tabbedPane;
-    private javax.swing.JRadioButton wholeSentence;
-    private javax.swing.JScrollPane wordPane;
-    private javax.swing.JScrollPane wordTfidfPane;
-    // End of variables declaration//GEN-END:variables
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private javax.swing.JScrollPane basicBigramPane;
+	private javax.swing.JScrollPane basicBigramTfidfPane;
+	private javax.swing.JScrollPane basicWordPane;
+	private javax.swing.JScrollPane basicWordTfidfPane;
+	private javax.swing.JScrollPane bigramPane;
+	private javax.swing.JScrollPane bigramTfidfPane;
+	private javax.swing.ButtonGroup buttonGroup;
+	private javax.swing.JButton choosePath;
+	private javax.swing.JButton choosePos1;
+	private javax.swing.JButton choosePos2;
+	private javax.swing.JLabel chosenPath;
+	private javax.swing.JRadioButton followingWords;
+	private javax.swing.JLabel jLabel1;
+	private javax.swing.JLabel jLabel2;
+	private javax.swing.JLabel jLabel3;
+	private javax.swing.JLabel jLabel4;
+	private javax.swing.JLabel jLabel5;
+	private javax.swing.JLabel jLabel6;
+	private javax.swing.JLabel jLabel7;
+	private javax.swing.JLabel jLabel8;
+	private javax.swing.JPanel jPanel1;
+	private javax.swing.JPanel jPanel2;
+	private javax.swing.JPanel jPanel3;
+	private javax.swing.JSeparator jSeparator1;
+	private javax.swing.JButton loadResults;
+	private javax.swing.JTextField outFileName;
+	private javax.swing.JButton run;
+	private javax.swing.JTabbedPane tabbedPane;
+	private javax.swing.JRadioButton wholeSentence;
+	private javax.swing.JScrollPane wordPane;
+	private javax.swing.JScrollPane wordTfidfPane;
+	// End of variables declaration//GEN-END:variables
 }
