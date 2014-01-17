@@ -16,7 +16,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import sql.SQLRead;
-import logic.GateController;
+import logic.Controller;
 import logic.Options;
 import model.ModelLogic;
 import model.WordModel;
@@ -360,7 +360,7 @@ public class AppWindow extends javax.swing.JFrame implements ActionListener {
 	private void runActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runActionPerformed
 		Options options = getOptions();
 		try {
-			GateController gc = new GateController();
+			Controller gc = new Controller();
 			gc.calculate(options);
 			fillTables(options.getFileName());
 		} catch (Exception e) {

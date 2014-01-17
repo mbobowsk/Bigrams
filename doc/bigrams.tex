@@ -22,16 +22,10 @@
 Niniejszy dokument stanowi podsumowanie projektu z przedmiotu WEDT.
 Zawiera opis interfejsu użytkownika i logiki programu oraz przedstawienie struktury kodu źródłowego.
 
-\section{Koncepcja programu}
-Program ma za zadanie obliczyć statystyki słów i bigramów z jednego lub wielu plików wejściowych.
-Obsługiwane powinny być najbardziej popularne formaty plików w tym pliki MS Word.
-Wyniki obliczeń powinny być przechowywane na dysku w rozsądnym formacie i możliwe do wykorzystania w przyszłości.
-
-Program powinien zawierać prosty graficzny interfejs użytkownika.
-Jego zadaniem jest pobranie parametrów obliczeń oraz wyświetlenie wyników symulacji.
-Możliwa powinna być również filtracja wyświetlanych danych danych.
-
 \section{Przypadki użycia}
+Uznaliśmy, że określenie przypadków użycia jest najprostszym sposobem zapisania wymagań wstępnych.
+Scenariusze można też traktować jako zwięzłą instrukcję obsługi.
+
 \subsection{Przeprowadzenie obliczeń}
 Podstawowym zadaniem programu jest przeprowadzenie obliczeń i wyświetlenie ich na ekranie.
 Scenariusz tworzą następujące zdarzenia:
@@ -43,6 +37,8 @@ Scenariusz tworzą następujące zdarzenia:
 \end{enumerate}
 
 \subsection{Wczytanie wyników}
+Wysoce prawdopodobnym jest powrót użytkownika do wyników już przeprowadzonych obliczeń.
+Mając to na uwadze, oraz biorąc pod uwagę czasochłonność symulacji, wprowadziliśmy możliwość wczytania danych z pliku.
 \begin{enumerate}
  \item Użytkownik wybiera ścieżkę do pliku z zapisanymi wynikami.
  \item System wyświetla wyniki na ekranie.
@@ -50,8 +46,12 @@ Scenariusz tworzą następujące zdarzenia:
 
 \subsection{Filtracja}
 Operacja filtracji staje się dostępna dopiero po wykonaniu któregoś z wcześniejszych przypadków użycia.
+Aby nie komplikować wyglądu tabel wynikowych wypełnianie filtrów zostało przeniesione do oddzielnego dialogu.
+Uruchomienie okna filtracji jest możliwe przy pomocy menu kontekstowego.
+
 \begin{enumerate}
  \item Użytkownik wybiera jedną z tabel wynikowych.
+ \item Użytkownik otwiera dialog filtracji przy użyciu menu kontekstowego.
  \item Użytkownik wypełnia filtry.
  \item System wyświetla przefiltrowane wyniki na ekranie.
 \end{enumerate}
@@ -60,26 +60,26 @@ Operacja filtracji staje się dostępna dopiero po wykonaniu któregoś z wcześ
 W tej części doprecyzowane zostały wymagania dotyczące danych wejściowych i wyjściowych.
 \subsection{Parametry wejściowe}
 Przed przeprowadzeniem obliczeń użytkownik może zdefiniować następujące parametry:
-\begin{enumerate}
+\begin{itemize}
  \item Ścieżka do pliku wejściowego lub katalogu zawierającego wiele plików wejściowych.
  \item Typ bigramu: obliczany dla kolejnych słów lub wszystkich słów w tekście.
  \item Części mowy dla słów z bigramu.
  \item Nazwa pliku wyjściowego.
-\end{enumerate}
+\end{itemize}
 
 \subsection{Format danych wyjściowych}
 Statystyki słów/bigramów są liczone i prezentowane dwa razy - dla słów z odmianą oraz dla formy podstawowej.
 Statystyki dla słów:
-\begin{enumerate}
+\begin{itemize}
  \item Liczba wystąpień w zbiorze.
  \item Liczba zdań w których wystąpiło słowo.
  \item Liczba dokumentów w których wystąpiło słowo.
  \item Procent dokumentów w których wystąpiło słowo.
  \item Miara tf-idf.
-\end{enumerate}
+\end{itemize}
 
 Statystyki dla bigramów:
-\begin{enumerate}
+\begin{itemize}
  \item Liczba wystąpień w zbiorze.
  \item Liczba zdań w którtch wystąpił bigram.
  \item Liczba dokumentów w których wystąpił bigram.
@@ -88,7 +88,7 @@ Statystyki dla bigramów:
  \item Prawdopodobieństwo słowa 1.
  \item Prawdopodobieństwo słowa 2.
  \item Prawdopodobieństwo bigramu złożonego ze słów 1 i 2.
-\end{enumerate}
+\end{itemize}
 
 \section{Wybór narzędzi i technologii}
 Program został zrealizowany w języku Java.
@@ -97,10 +97,42 @@ Do kontroli kodu wykorzystaliśmy system Git.
 
 Do oznaczenia części mowy wykorzystaliśmy bibliotekę Gate.
 Korzysta ona wewnętrznie z biblioteki TIKA, dzięki czemu uzyskaliśmy wsparcie dla wielu formatów tekstowych m. in. txt, html, odt i doc.
+Najważniejszym elementem zapożyczonym ze środowiska Gate jest automatyczny POS-tagger dla języka angielskiego.
+
+Dane wyjściowe są przechowywane na dysku w formacie bazy danych SQLite.
+Jest to efektywne i uniwersalne rozwiązanie.
+
+\section{Uruchomienie programu}
+Do uruchomienia programu niezbędne jest ściągnięcie biblioteki GATE oraz ustawienie zmiennej gate.home.
+Zmienna jest argumentem maszyny wirtualnej - w środowisku Eclipse należy wejść w menu Run -> RunConfigurations -> Arguments i tam wpisać np. -Dgate.home="/home/preston/GATE\_Developer\_7.1".
 
 \section{Opis kodu źródłowego}
+Kod programu wraz z historią zmian jest dostępny w repozytorium pod adresem https://github.com/mbobowsk/Bigrams .
 
-\section{Algorytmy}
+Kod źródłowy staraliśmy się rozplanować zgodnie z ideą wzorca MVC.
+Wyodrębniliśmy cztery pakiety, grupując w nich podobne funkcjonalności.
+\subsection{Pakiet view}
+Pakiet view zawiera wszystkie klasy związane bezpośrednio z widokiem.
+Duża część kodu znajdującego się w tym pakiecie została automatycznie wygenerowana przez edytor formularzy NetBeans.
+Główne okno programu reprezentuje klasa \emph{AppWindow}.
+Pozostałe klasy obsługują dialogi oraz logikę w nich zawartą (głównie filtrowanie danych).
+
+\subsection{Pakiet model}
+Pakiet model jest pokłosiem architektury biblioteki Swing.
+Każdy element wyświetlający grupę danych (listy, tabele) potrzebuje powiązanego modelu.
+Dodatkowo pakiet zawiera klasę \emph{ModelLogic}, która odpowiada za incjalizację modelu części mowy.
+
+\subsection{Pakiet sql}
+Wszelkie operacje związane z bazą danych są wykonywane w pakiecie sql.
+Dodatkowo wydzielone zostały oddzielne klasy dla zapisu i odczytu (\emph{SQLWrite} i \emph{SQLRead}).
+
+\subsection{Pakiet logic}
+W pakiecie logic znajduje się pozostała częśc logiki oraz typy danych.
+Klasa \emph{Controller} stanowi warstwę logiki, do której trafiają dane z widoku.
+\emph{Controller} posiada jedną metodę publiczną, która przyjmuje na wejściu opcje programu (obiekt klasy \emph{Options}), a następnie przeprowadza wszystkie obliczenia.
+Enkapsuluje ona wywołania biblioteki Gate, poprzez którą przeprowadzany jest podział na tokeny, podział na zdania oraz oznaczanie części mowy.
+
+\section{Algorytm obliczania statystyk}
 
 
 \end{document}
