@@ -91,6 +91,22 @@ public class AppWindow extends javax.swing.JFrame implements ActionListener {
 			BigramFilterDialog bfd2 = new BigramFilterDialog(this, basicBigramTable);
 			bfd2.setVisible(true);
 			break;
+		case 5:
+			TfidfFilterDialog dlg = new TfidfFilterDialog(this, tfidfTable);
+			dlg.setVisible(true);
+			break;
+		case 6:
+			TfidfFilterDialog dlg2 = new TfidfFilterDialog(this, basicTfidfTable);
+			dlg2.setVisible(true);
+			break;
+		case 7:
+			BigramTfidfFilterDialog dlg3 = new BigramTfidfFilterDialog(this, bigramTfidfTable);
+			dlg3.setVisible(true);
+			break;
+		case 8:
+			BigramTfidfFilterDialog dlg4 = new BigramTfidfFilterDialog(this, basicBigramTfidfTable);
+			dlg4.setVisible(true);
+			break;
 		}
 	}
 

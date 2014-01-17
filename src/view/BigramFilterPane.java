@@ -17,10 +17,6 @@ import javax.swing.table.TableRowSorter;
 
 import model.BigramModel;
 
-/**
- *
- * @author preston
- */
 public class BigramFilterPane extends javax.swing.JPanel {
 
 	private final BigramModel model;
@@ -226,7 +222,7 @@ public class BigramFilterPane extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(152, 152, 152)
+                .addGap(141, 141, 141)
                 .addComponent(filterButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -290,9 +286,9 @@ public class BigramFilterPane extends javax.swing.JPanel {
                     .addComponent(pxFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel23)
                     .addComponent(pxTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(filterButton)
-                .addContainerGap())
+                .addContainerGap(14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
