@@ -9,8 +9,6 @@
 \usepackage{graphics}
 \usepackage{graphicx}
 
-\usepackage[dvips]{hyperref}
-
 \author{Michał Bobowski, Marcin Cieślikowski}
 \date{2014-01-16}
 \title{Narzędzie do analizy statystycznej słów i bigramów.}
@@ -67,7 +65,7 @@ Przed przeprowadzeniem obliczeń użytkownik może zdefiniować następujące pa
  \item Nazwa pliku wyjściowego.
 \end{enumerate}
 
-\subsection{Format danych wyjściowych}
+\subsection{Prezentacja danych}
 Statystyki słów/bigramów są liczone i prezentowane dwa razy - dla słów z odmianą oraz dla formy podstawowej.
 Statystyki dla słów:
 \begin{enumerate}
@@ -90,6 +88,47 @@ Statystyki dla bigramów:
  \item Prawdopodobieństwo bigramu złożonego ze słów 1 i 2.
 \end{enumerate}
 
+\subsection{Format danych wyjściowych}
+Dane wyjściowe są zapisywane do pliku bazy danych sqlite.
+Baza danych zawiera 8 nastepujących tabel:
+\begin{enumerate}
+ \item Tabela words zawiera statystyki słow. Tabela ta zawiera następujące pola:
+  \begin{enumerate}
+    \item word - Nazwa słowa.
+    \item count - Liczba wystąpień słowa w korpusie.
+    \item numberOfSentences - Liczba zdań zawierających słowo.
+    \item numberOfDocuments - Liczba dokumentów zawierających słowo.
+    \item percentOfDocuments - Procent dokumentów zawierających słowo.
+  \end{enumerate}
+  \item Tabela Lemmas zawiera statystyki dla słów w formie podstawowej. Pola tej tabeli są identyczne, jak w tabeli words.
+  \item Tabela WordTFIDF - Zawiera wskaźnik TF-IDF. W~tej tabeli znajdują się następujące pola:
+  \begin{enumerate}
+    \item word - Słowo, dla którego obliczany jest wskaźnik TF-IDF.
+    \item  document - Nazwa dokumentu, dla którego oblicznay jest wskaźnik TF-IDF.
+    \item TFIDF - Wartość wskaźnika TFIDF
+  \end{enumerate}
+  \item Tabela bigrams zawiera statystyki bigramów. Tabela ta zawiera następujące pola:
+  \begin{enumerate}
+     \item word1 - Pierwsze słowo w bigramie.
+     \item word2 - Drugie słowo w bigramie.
+     \item count - Liczba wystąpień bigramu w korpusie.
+     \item numberOfSentences  - Liczba zdań zawierające bigram.
+     \item numberOfDocuments - Liczba dokumentów zawierających bigram.
+     \item percentOfDocuments  - Procent dokumentów zawierających bigram.
+     \item percentOfSentence  -  Procent zdań zawierająch bigram.
+     \item percentOfSentencew1 - Procent zdań zawierająch pierwsze zdanie.
+     \item percentOfSentencew2 - Procent zdań zawierająch drugie zdanie.
+  \end{enumerate}
+  \item Tabela bigramsLemma zawiera statystyki bgramów w formie podstawowej. Pola tabeli są takie same, jak w tabeli bigrams.
+  \item Tabela bigramsTFIDF zawiera wskaźnik TF-IDF dla bigramów. Tabela zawiera następujące pola:
+  \begin{enumerate}
+     \item word1 - Pierwsze słowo w bigramie.
+     \item word2 - Drugie słowo w bigramie.
+     \item  TFIDF - Wartość wskaźnika TFIDF
+  \end{enumerate}
+  \item Tabela bigramsLemmaTFIDF zawiera wskaźnik TF-IDF dla bigramów w formie podstawowej.
+  Pola tabeli pokrywaja się z polami tabel bigramsTFIDF
+\end{enumerate}
 \section{Wybór narzędzi i technologii}
 Program został zrealizowany w języku Java.
 Kod tworzyliśmy przy użyciu środowiska Eclipse oraz częściowo Netbeans (edytor interfejsu użytkownika).
