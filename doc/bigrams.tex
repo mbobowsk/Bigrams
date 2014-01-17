@@ -140,6 +140,16 @@ Korzysta ona wewnętrznie z biblioteki TIKA, dzięki czemu uzyskaliśmy wsparcie
 \section{Opis kodu źródłowego}
 
 \section{Algorytmy}
+Program dla podanych dokumentów uruchamia funkcje bibliotęki GATE, które dzielą tekst na słowa, zdania. Dodatkowo dla słów są określanę części mowy i formy podstawowe słów.
+Dane zwróconę przez GATE są przetwarzane do formy przedstwionej na rysunku 1.
+\begin{figure}
+  \begin{center}
+    \includegraphics{Struktura danych.pdf}
+    \caption{Struktura danych}
+  \end{center}
+\end{figure}
+Program przetwarza po kolei termy (słowa i bigramy) w~zdaniach. Podczas przetwarzania termów program zlicza statystyki termów.
+ 
 
 
 \end{document}
