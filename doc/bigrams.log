@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2014.1.17)  17 JAN 2014 16:51
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2014.1.17)  17 JAN 2014 17:30
 entering extended mode
 **C:/Users/marcin/git/Bigrams/doc/bigrams.tex
 (C:/Users/marcin/git/Bigrams/doc/bigrams.tex
@@ -344,107 +344,32 @@ Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \Gin@req@height=\dimen108
 \Gin@req@width=\dimen109
 )
-(C:\Users\marcin\git\Bigrams\doc\bigrams.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 16.
+(C:\Users\marcin\git\Bigrams\doc\bigrams.aux
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
-File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count89
-\scratchdimen=\dimen110
-\scratchbox=\box26
-\nofMPsegments=\count90
-\nofMParguments=\count91
-\everyMPshowfont=\toks17
-\MPscratchCnt=\count92
-\MPscratchDim=\dimen111
-\MPnumerator=\count93
-\makeMPintoPDFobject=\count94
-\everyMPtoPDFconversion=\toks18
-)
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 17.
- ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
-File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 17.
+! LaTeX Error: Missing \begin{document}.
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
-File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 17.
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 <
+     <<<<<< HEAD
+? 
+! Emergency stop.
+ ...                                              
+                                                  
+l.1 <
+     <<<<<< HEAD
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
-
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
-File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 17.
-
-
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
-File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 17.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 17.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 17.
- [1
-
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
-Overfull \hbox (1.04517pt too wide) in paragraph at lines 101--102
-[]\T1/lmr/m/n/10.95 percentOfDocuments - Pro-cent do-ku-men-tów za-wie-ra-j¡-cy
-ch sªowo. 
- []
-
-[3]
-Overfull \hbox (3.08217pt too wide) in paragraph at lines 116--117
-[]\T1/lmr/m/n/10.95 numberOfDocuments - Liczba do-ku-men-tów za-wie-ra-j¡-cych 
-bi-gram. 
- []
-
-[4]
-
-LaTeX Warning: File `Struktura danych.pdf' not found on input line 147.
-
-<Struktura danych.pdf, id=18, 322.95656pt x 258.21469pt>
-File: Struktura danych.pdf Graphic file (type pdf)
-
-<use Struktura danych.pdf>
-Package pdftex.def Info: Struktura danych.pdf used on input line 147.
-(pdftex.def)             Requested size: 322.95576pt x 258.21405pt.
- [5] [6 <C:/Users/marcin/git/Bigrams/doc/Struktura danych.pdf>] (C:\Users\marci
-n\git\Bigrams\doc\bigrams.aux) ) 
+ 
 Here is how much of TeX's memory you used:
- 2041 strings out of 493921
- 25738 string characters out of 3144873
- 80839 words of memory out of 3000000
- 5321 multiletter control sequences out of 15000+200000
- 33733 words of font info for 32 fonts, out of 3000000 for 9000
+ 1589 strings out of 493921
+ 18660 string characters out of 3144873
+ 72552 words of memory out of 3000000
+ 4907 multiletter control sequences out of 15000+200000
+ 4709 words of font info for 16 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 24i,6n,24p,251b,250s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dv
-ips/lm/lm-ec.enc}<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmbx1
-2.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Pr
-ogram Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files 
-(x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb>
-Output written on bigrams.pdf (6 pages, 218454 bytes).
-PDF statistics:
- 54 PDF objects out of 1000 (max. 8388607)
- 0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+ 24i,0n,24p,251b,38s stack positions out of 5000i,500n,10000p,200000b,50000s
+!  ==> Fatal error occurred, no output PDF file produced!
