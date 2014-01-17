@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -38,12 +39,18 @@ public class AppWindow extends javax.swing.JFrame implements ActionListener {
 	    
 	    MouseListener popupListener = new PopupListener(popup);
 	    wordTable.addMouseListener(popupListener);
+	    basicWordTable.addMouseListener(popupListener);
 	}
 	
 	private void initTables() {
-		wordTable.setAutoCreateRowSorter(true);
-		wordTable.setFillsViewportHeight(true);
-		wordPane.setViewportView(wordTable);
+		initTable(wordTable, wordPane);
+		initTable(basicWordTable, basicWordPane);
+	}
+	
+	private void initTable(JTable table, JScrollPane pane) {
+		table.setAutoCreateRowSorter(true);
+		table.setFillsViewportHeight(true);
+		pane.setViewportView(table);
 	}
 	
 	@Override
@@ -384,7 +391,9 @@ public class AppWindow extends javax.swing.JFrame implements ActionListener {
 			wordModel = read.getWordModel(false);
 			wordTable.setModel(wordModel);
 			
-			addTable(read.getWordModel(true), basicWordPane);
+			basicWordModel = read.getWordModel(false);
+			basicWordTable.setModel(basicWordModel);
+			
 			addTable(read.getTfidfModel(false), wordTfidfPane);
 			addTable(read.getTfidfModel(true), basicWordTfidfPane);
 			addTable(read.getBigramModel(false), bigramPane);
@@ -475,8 +484,10 @@ public class AppWindow extends javax.swing.JFrame implements ActionListener {
 	private DefaultListModel inactiveModel2 = new DefaultListModel();
 	
 	private JTable wordTable = new JTable();
+	private JTable basicWordTable = new JTable();
 	
 	private WordModel wordModel = null;
+	private WordModel basicWordModel = null;
 	
 	private JPopupMenu popup = new JPopupMenu();
 
