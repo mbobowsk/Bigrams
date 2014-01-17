@@ -1,13 +1,15 @@
 package view;
 
-import gate.util.GateException;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.io.File;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
@@ -16,16 +18,48 @@ import sql.SQLRead;
 import logic.GateController;
 import logic.Options;
 import model.ModelLogic;
-import model.Pos;
+import model.WordModel;
 
-public class AppWindow extends javax.swing.JFrame {
+public class AppWindow extends javax.swing.JFrame implements ActionListener {
 
 	/**
 	 * Creates new form AppWindow
 	 */
 	public AppWindow() {
 		initComponents();
-		//initModels();
+		initMenu();
+		initTables();
+	}
+	
+	private void initMenu() {
+	    JMenuItem menuItem = new JMenuItem("Filtruj");
+	    menuItem.addActionListener(this);
+	    popup.add(menuItem);
+	    
+	    MouseListener popupListener = new PopupListener(popup);
+	    wordTable.addMouseListener(popupListener);
+	}
+	
+	private void initTables() {
+		wordTable.setAutoCreateRowSorter(true);
+		wordTable.setFillsViewportHeight(true);
+		wordPane.setViewportView(wordTable);
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// If one model is null then others are null too
+		if (wordModel == null)
+			return;
+		
+		int index = tabbedPane.getSelectedIndex();
+
+		switch (index) {
+		case 1:
+			WordFilterDialog wdf = new WordFilterDialog(this, wordTable);
+			wdf.setVisible(true);
+			break;
+		}
 	}
 
 	/**
@@ -39,7 +73,7 @@ public class AppWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup = new javax.swing.ButtonGroup();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabbedPane = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -148,16 +182,13 @@ public class AppWindow extends javax.swing.JFrame {
                                         .addComponent(jLabel1)
                                         .addGap(18, 18, 18)
                                         .addComponent(choosePath))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(followingWords)
-                                            .addComponent(wholeSentence)))
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(12, 12, 12)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(followingWords)
+                                            .addComponent(wholeSentence)
                                             .addGroup(jPanel2Layout.createSequentialGroup()
                                                 .addComponent(jLabel6)
                                                 .addGap(18, 18, 18)
@@ -237,7 +268,7 @@ public class AppWindow extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
@@ -280,29 +311,25 @@ public class AppWindow extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Opcje", jPanel1);
-        jTabbedPane1.addTab("Słowa", wordPane);
-        jTabbedPane1.addTab("Słowa (lemma)", basicWordPane);
-        jTabbedPane1.addTab("Bigramy", bigramPane);
-        jTabbedPane1.addTab("Bigramy (lemma)", basicBigramPane);
-        jTabbedPane1.addTab("Słowa tf-idf", wordTfidfPane);
-        jTabbedPane1.addTab("Słowa (lemma) tf-idf", basicWordTfidfPane);
-        jTabbedPane1.addTab("Bigramy tf-idf", bigramTfidfPane);
-        jTabbedPane1.addTab("Bigramy (lemma) tf-idf", basicBigramTfidfPane);
+        tabbedPane.addTab("Opcje", jPanel1);
+        tabbedPane.addTab("Słowa", wordPane);
+        tabbedPane.addTab("Słowa (lemma)", basicWordPane);
+        tabbedPane.addTab("Bigramy", bigramPane);
+        tabbedPane.addTab("Bigramy (lemma)", basicBigramPane);
+        tabbedPane.addTab("Słowa tf-idf", wordTfidfPane);
+        tabbedPane.addTab("Słowa (lemma) tf-idf", basicWordTfidfPane);
+        tabbedPane.addTab("Bigramy tf-idf", bigramTfidfPane);
+        tabbedPane.addTab("Bigramy (lemma) tf-idf", basicBigramTfidfPane);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1))
+            .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1))
+            .addComponent(tabbedPane)
         );
 
         pack();
@@ -353,7 +380,10 @@ public class AppWindow extends javax.swing.JFrame {
 	private void fillTables(String path) {
 		try {
 			SQLRead read = new SQLRead(path);
-			addTable(read.getWordModel(false), wordPane);
+
+			wordModel = read.getWordModel(false);
+			wordTable.setModel(wordModel);
+			
 			addTable(read.getWordModel(true), basicWordPane);
 			addTable(read.getTfidfModel(false), wordTfidfPane);
 			addTable(read.getTfidfModel(true), basicWordTfidfPane);
@@ -443,6 +473,12 @@ public class AppWindow extends javax.swing.JFrame {
 	private DefaultListModel inactiveModel1 = new DefaultListModel();
 	private DefaultListModel activeModel2 = ModelLogic.initPosModel();
 	private DefaultListModel inactiveModel2 = new DefaultListModel();
+	
+	private JTable wordTable = new JTable();
+	
+	private WordModel wordModel = null;
+	
+	private JPopupMenu popup = new JPopupMenu();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane basicBigramPane;
@@ -469,10 +505,10 @@ public class AppWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton loadResults;
     private javax.swing.JTextField outFileName;
     private javax.swing.JButton run;
+    private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JRadioButton wholeSentence;
     private javax.swing.JScrollPane wordPane;
     private javax.swing.JScrollPane wordTfidfPane;
